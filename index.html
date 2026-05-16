@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Фотограф в Сочи — Сергей | Портрет, Свадьба, Недвижимость</title>
+<meta name="description" content="Профессиональная фотосъёмка в Сочи. Портрет, свадьба, недвижимость, видео. Частный фотограф Сергей.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --white:#ffffff;--bg:#fafafa;--surface:#f5f5f7;--border:#e8e8ec;
+  --text:#1d1d1f;--text2:#6e6e73;--text3:#aeaeb2;
+  --accent:#0071e3;--accent-light:#e8f2ff;--accent-dark:#005ecb;
+  --green:#34c759;
+  --font:'Inter',system-ui,-apple-system,sans-serif;
+  --display:'Playfair Display',Georgia,serif;
+  --radius:20px;--radius-sm:12px;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--font);color:var(--text);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+.section{padding:100px 0}
+@media(max-width:768px){.section{padding:72px 0}}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,250,250,.88);backdrop-filter:blur(24px) saturate(180%);border-bottom:1px solid var(--border)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-family:var(--display);font-size:1.2rem;font-weight:700;letter-spacing:-.02em}
+.logo span{color:var(--accent)}
+.nav-phone{display:flex;align-items:center;gap:8px;font-weight:600;font-size:.88rem;color:var(--text);text-decoration:none;padding:8px 16px;background:var(--accent-light);border-radius:100px;transition:all .2s}
+.nav-phone:hover{background:var(--accent);color:#fff;transform:scale(1.02)}
+
+.hero{padding:160px 0 80px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:0;left:50%;width:900px;height:600px;transform:translateX(-50%);background:radial-gradient(ellipse,rgba(0,113,227,.06),transparent 70%);pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--accent-light);color:var(--accent);font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 16px;border-radius:100px;margin-bottom:28px}
+.hero-badge .dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-family:var(--display);font-size:clamp(2.5rem,6vw,4rem);font-weight:700;line-height:1.08;letter-spacing:-.03em;max-width:800px;margin:0 auto 24px}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero-sub{font-size:1.12rem;color:var(--text2);max-width:540px;margin:0 auto 40px;line-height:1.7}
+.hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;font-weight:600;font-size:.95rem;padding:16px 32px;border-radius:14px;border:none;cursor:pointer;text-decoration:none;transition:all .25s;box-shadow:0 4px 20px rgba(0,113,227,.25)}
+.btn-primary:hover{background:var(--accent-dark);transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,113,227,.35)}
+.btn-secondary{display:inline-flex;align-items:center;gap:8px;background:var(--surface);color:var(--text);font-weight:600;font-size:.95rem;padding:16px 32px;border-radius:14px;border:1px solid var(--border);cursor:pointer;text-decoration:none;transition:all .2s}
+.btn-secondary:hover{background:var(--border)}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-radius:var(--radius);overflow:hidden;margin-top:64px}
+.stat{background:var(--white);padding:36px 24px;text-align:center}
+.stat-num{font-family:var(--display);font-size:2.2rem;font-weight:700;letter-spacing:-.03em;color:var(--text)}
+.stat-unit{font-size:.85rem;color:var(--accent);font-weight:600}
+.stat-label{font-size:.72rem;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-top:6px}
+@media(max-width:768px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+.sh{margin-bottom:56px;text-align:center}
+.sh-label{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.sh h2{font-family:var(--display);font-size:clamp(1.8rem,4vw,2.6rem);font-weight:700;letter-spacing:-.02em;line-height:1.15;max-width:600px;margin:0 auto}
+.sh p{color:var(--text2);margin-top:12px;font-size:.95rem;max-width:480px;margin-left:auto;margin-right:auto}
+
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media(max-width:768px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}}
+
+.portfolio-item{position:relative;border-radius:var(--radius-sm);overflow:hidden;aspect-ratio:4/3;background:var(--surface);cursor:pointer;transition:all .3s}
+.portfolio-item:hover{transform:scale(1.02);box-shadow:0 12px 40px rgba(0,0,0,.1)}
+.portfolio-item img{width:100%;height:100%;object-fit:cover}
+.portfolio-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7),transparent 60%);display:flex;align-items:flex-end;padding:20px;opacity:0;transition:opacity .3s}
+.portfolio-item:hover .portfolio-overlay{opacity:1}
+.portfolio-overlay span{color:#fff;font-weight:600;font-size:.9rem}
+
+.price-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:32px;transition:all .3s;position:relative;overflow:hidden}
+.price-card:hover{transform:translateY(-3px);box-shadow:0 16px 48px rgba(0,0,0,.08)}
+.price-card.featured{border-color:var(--accent);background:linear-gradient(180deg,var(--accent-light),var(--white) 40%)}
+.price-card.featured::after{content:'Популярный';position:absolute;top:20px;right:-28px;background:var(--accent);color:#fff;font-size:.62rem;font-weight:700;padding:4px 36px;transform:rotate(45deg);letter-spacing:.04em}
+.price-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
+.price-name{font-size:1.05rem;font-weight:600}
+.price-value{text-align:right}
+.price-amount{font-family:var(--display);font-size:1.8rem;font-weight:700;color:var(--accent);letter-spacing:-.02em}
+.price-amount small{font-size:.75rem;color:var(--text3);font-weight:400;font-family:var(--font)}
+.price-note{font-size:.72rem;color:var(--text3);margin-top:2px}
+.price-desc{font-size:.85rem;color:var(--text2);line-height:1.6;margin-bottom:20px}
+.price-features{list-style:none;padding:0;margin:0 0 24px 0}
+.price-features li{font-size:.82rem;color:var(--text2);padding:6px 0;padding-left:22px;position:relative}
+.price-features li::before{content:'';position:absolute;left:0;top:12px;width:12px;height:12px;border-radius:50%;background:var(--green);opacity:.15}
+.price-features li::after{content:'✓';position:absolute;left:2px;top:5px;font-size:.7rem;color:var(--green);font-weight:700}
+.price-btn{display:block;text-align:center;background:var(--surface);color:var(--text);font-weight:600;font-size:.88rem;padding:14px;border-radius:var(--radius-sm);text-decoration:none;transition:all .2s;border:1px solid var(--border)}
+.price-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.price-card.featured .price-btn{background:var(--accent);color:#fff;border-color:var(--accent)}
+.price-card.featured .price-btn:hover{background:var(--accent-dark)}
+
+.guarantee{background:var(--white);border:2px solid var(--accent);border-radius:var(--radius);padding:48px;text-align:center;position:relative}
+.guarantee::before{content:'';position:absolute;top:12px;left:12px;right:12px;bottom:12px;border:1px dashed var(--accent);border-radius:calc(var(--radius) - 4px);pointer-events:none;opacity:.3}
+.guarantee-icon{width:64px;height:64px;border-radius:16px;background:var(--accent-light);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:1.6rem}
+.guarantee h3{font-family:var(--display);font-size:1.5rem;font-weight:700;margin-bottom:10px}
+.guarantee p{color:var(--text2);font-size:.92rem;max-width:480px;margin:0 auto;line-height:1.65}
+
+.testimonials{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:768px){.testimonials{grid-template-columns:1fr}}
+.test-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-sm);padding:28px}
+.test-stars{color:var(--accent);font-size:.9rem;letter-spacing:3px;margin-bottom:12px}
+.test-text{font-size:.88rem;color:var(--text2);line-height:1.65;margin-bottom:16px}
+.test-author{display:flex;align-items:center;gap:10px}
+.test-avatar{width:36px;height:36px;border-radius:50%;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;color:var(--accent)}
+.test-name{font-weight:600;font-size:.88rem}
+.test-type{font-size:.72rem;color:var(--text3)}
+
+.cta-section{background:var(--white);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:80px 0;text-align:center}
+.cta-section h2{font-family:var(--display);font-size:clamp(1.8rem,4vw,2.6rem);font-weight:700;letter-spacing:-.02em;margin-bottom:12px}
+.cta-section p{color:var(--text2);margin-bottom:32px;font-size:.95rem}
+
+footer{padding:48px 0;text-align:center;color:var(--text3);font-size:.78rem}
+footer a{color:var(--text2);text-decoration:none;font-weight:600}
+footer a:hover{color:var(--accent)}
+
+.sticky-mobile{display:none;position:fixed;bottom:0;left:0;right:0;background:rgba(250,250,250,.95);backdrop-filter:blur(16px);padding:12px 16px;border-top:1px solid var(--border);z-index:99}
+.sticky-mobile .btn-primary{width:100%;justify-content:center}
+@media(max-width:640px){.sticky-mobile{display:block}.hero{padding:140px 0 100px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="logo">Photo<span>Sochi</span></div>
+    <a href="tel:+79153138254" class="nav-phone">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.74 2.79a2 2 0 0 1-.45 2.46l-1.18 1.18a16 16 0 0 0 6 6l1.18-1.18a2 2 0 0 1 2.46-.45c.886.379 1.83.613 2.79.74A2 2 0 0 1 22 16.92z"/></svg>
+      +7 915 313-82-54
+    </a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-badge"><span class="dot"></span> Принимаю заявки на сезон 2026</div>
+    <h1>Фотограф в <em>Сочи</em><br>для ваших лучших моментов</h1>
+    <p class="hero-sub">Портрет, свадьба, недвижимость. Работаю один — каждый кадр проходит через мой вкус и опыт.</p>
+    <div class="hero-actions">
+      <a href="tel:+79153138254" class="btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.74 2.79a2 2 0 0 1-.45 2.46l-1.18 1.18a16 16 0 0 0 6 6l1.18-1.18a2 2 0 0 1 2.46-.45c.886.379 1.83.613 2.79.74A2 2 0 0 1 22 16.92z"/></svg>
+        Позвонить Сергею
+      </a>
+      <a href="https://wa.me/79153138254" class="btn-secondary">WhatsApp</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="stat-num">7<span class="stat-unit">+</span></div><div class="stat-label">Лет опыта</div></div>
+      <div class="stat"><div class="stat-num">500<span class="stat-unit">+</span></div><div class="stat-label">Фотосессий</div></div>
+      <div class="stat"><div class="stat-num">100<span class="stat-unit">%</span></div><div class="stat-label">Довольных</div></div>
+      <div class="stat"><div class="stat-num">24<span class="stat-unit">ч</span></div><div class="stat-label">Выдача фото</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="portfolio">
+  <div class="wrap">
+    <div class="sh">
+      <div class="sh-label">Портфолио</div>
+      <h2>Примеры моих работ</h2>
+      <p>Каждый кадр — это история, которую я рассказываю через объектив.</p>
+    </div>
+    <div class="grid-3">
+      <div class="portfolio-item">
+        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&q=80" alt="Портретная съёмка">
+        <div class="portfolio-overlay"><span>Портрет</span></div>
+      </div>
+      <div class="portfolio-item">
+        <img src="https://images.unsplash.com/photo-1511285569281-60f25ebe1d11?w=600&q=80" alt="Свадебная съёмка">
+        <div class="portfolio-overlay"><span>Свадьба</span></div>
+      </div>
+      <div class="portfolio-item">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80" alt="Недвижимость">
+        <div class="portfolio-overlay"><span>Недвижимость</span></div>
+      </div>
+      <div class="portfolio-item">
+        <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e0?w=600&q=80" alt="Fashion съёмка">
+        <div class="portfolio-overlay"><span>Fashion</span></div>
+      </div>
+      <div class="portfolio-item">
+        <img src="https://images.unsplash.com/photo-1518834103325-7c72b1e1a08e?w=600&q=80" alt="Семейная съёмка">
+        <div class="portfolio-overlay"><span>Семья</span></div>
+      </div>
+      <div class="portfolio-item">
+        <img src="https://images.unsplash.com/photo-1554080353-a576cf803bda?w=600&q=80" alt="Love story">
+        <div class="portfolio-overlay"><span>Love story</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="prices">
+  <div class="wrap">
+    <div class="sh">
+      <div class="sh-label">Стоимость</div>
+      <h2>Цены на фотосъёмку в Сочи</h2>
+      <p>Фиксированная стоимость без скрытых доплат. Полный прайс присылаю после консультации.</p>
+    </div>
+    <div class="grid-3">
+      <div class="price-card">
+        <div class="price-header">
+          <div class="price-name">Портретная сессия</div>
+        </div>
+        <div class="price-value">
+          <div class="price-amount">от 5 000 <small>₽</small></div>
+          <div class="price-note">1 час съёмки</div>
+        </div>
+        <div class="price-desc">Индивидуальная съёмка в студии или на улице. 30+ обработанных фото.</div>
+        <ul class="price-features">
+          <li>1 час съёмки</li>
+          <li>30+ обработанных фото</li>
+          <li>Помощь с позированием</li>
+          <li>Личный архив</li>
+        </ul>
+        <a href="tel:+79153138254" class="price-btn">Записаться</a>
+      </div>
+      <div class="price-card featured">
+        <div class="price-header">
+          <div class="price-name">Свадебный день</div>
+        </div>
+        <div class="price-value">
+          <div class="price-amount">от 25 000 <small>₽</small></div>
+          <div class="price-note">от 6 часов</div>
+        </div>
+        <div class="price-desc">Полное сопровождение свадьбы. 200+ обработанных фото, видеоклип.</div>
+        <ul class="price-features">
+          <li>От 6 часов съёмки</li>
+          <li>200+ обработанных фото</li>
+          <li>Видеоклип до 3 минут</li>
+          <li>Фотокнига в подарок</li>
+          <li>Выезд по Сочи бесплатно</li>
+        </ul>
+        <a href="tel:+79153138254" class="price-btn">Записаться</a>
+      </div>
+      <div class="price-card">
+        <div class="price-header">
+          <div class="price-name">Недвижимость</div>
+        </div>
+        <div class="price-value">
+          <div class="price-amount">от 8 000 <small>₽</small></div>
+          <div class="price-note">до 100 м²</div>
+        </div>
+        <div class="price-desc">Профессиональная съёмка объекта для продажи или аренды.</div>
+        <ul class="price-features">
+          <li>До 100 м² площади</li>
+          <li>20+ фото интерьера</li>
+          <li>Цифровая обработка</li>
+          <li>Срок выдачи 24 часа</li>
+        </ul>
+        <a href="tel:+79153138254" class="price-btn">Записаться</a>
+      </div>
+      <div class="price-card">
+        <div class="price-header">
+          <div class="price-name">Love Story / Пара</div>
+        </div>
+        <div class="price-value">
+          <div class="price-amount">от 7 000 <small>₽</small></div>
+          <div class="price-note">2 часа съёмки</div>
+        </div>
+        <div class="price-desc">Романтическая съёмка для пар. 50+ обработанных фото.</div>
+        <ul class="price-features">
+          <li>2 часа съёмки</li>
+          <li>50+ обработанных фото</li>
+          <li>Красивые локации Сочи</li>
+          <li>Ретушь лиц включена</li>
+        </ul>
+        <a href="tel:+79153138254" class="price-btn">Записаться</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="guarantee">
+      <div class="guarantee-icon">★</div>
+      <h3>Не понравятся фото — переделаю бесплатно</h3>
+      <p>Если вы не будете довольны результатом, я проведу повторную съёмку или верну деньги. Моя репутация дороже любой сделки.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="testimonials">
+  <div class="wrap">
+    <div class="sh">
+      <div class="sh-label">Отзывы</div>
+      <h2>Что говорят клиенты</h2>
+    </div>
+    <div class="testimonials">
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <div class="test-text">Сергей сделал потрясающую свадебную съёмку. Фото получились живыми и эмоциональными. Гости до сих пор спрашивают контакты фотографа.</div>
+        <div class="test-author">
+          <div class="test-avatar">А</div>
+          <div><div class="test-name">Анна и Михаил</div><div class="test-type">Свадьба в Сочи</div></div>
+        </div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <div class="test-text">Заказывали съёмку квартиры для продажи. Фото получились настолько удачными, что квартиру продали за 2 дня выше цены.</div>
+        <div class="test-author">
+          <div class="test-avatar">Е</div>
+          <div><div class="test-name">Елена</div><div class="test-type">Недвижимость</div></div>
+        </div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <div class="test-text">Делали семейную съёмку на фоне моря. Дети чувствовали себя комфортно, Сергей умеет найти подход к любому.</div>
+        <div class="test-author">
+          <div class="test-avatar">Д</div>
+          <div><div class="test-name">Дмитрий</div><div class="test-type">Семейная съёмка</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="wrap">
+    <h2>Запишитесь на эту неделю</h2>
+    <p>Позвоните или напишите в WhatsApp — обсудим вашу идею и выберем удобное время.</p>
+    <a href="tel:+79153138254" class="btn-primary">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.74 2.79a2 2 0 0 1-.45 2.46l-1.18 1.18a16 16 0 0 0 6 6l1.18-1.18a2 2 0 0 1 2.46-.45c.886.379 1.83.613 2.79.74A2 2 0 0 1 22 16.92z"/></svg>
+      Позвонить Сергею
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Сергей — Фотограф в Сочи · Портрет · Свадьба · Недвижимость</p>
+    <p><a href="tel:+79153138254">+7 915 313-82-54</a> · Работаю по всему Сочи и Красной Поляне</p>
+  </div>
+</footer>
+
+<div class="sticky-mobile">
+  <a href="tel:+79153138254" class="btn-primary">Позвонить Сергею</a>
+</div>
+
+</body>
+</html>
