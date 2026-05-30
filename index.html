@@ -142,6 +142,8 @@ section, .section { padding: 100px 60px; }
 .case-card:hover .case-img { transform: scale(1.04); }
 .case-status { position: absolute; top: 18px; left: 18px; background: var(--gold); color: var(--dark); font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; padding: 6px 14px; }
 .case-status.work { background: var(--dark); color: var(--gold-light); }
+.case-city-on { position: absolute; bottom: 14px; left: 14px; background: rgba(26,23,20,0.78); color: var(--cream); font-size: 11px; font-weight: 400; letter-spacing: 0.16em; text-transform: uppercase; padding: 6px 14px; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+.object-city-on { position: absolute; top: 16px; left: 16px; background: rgba(26,23,20,0.78); color: var(--cream); font-size: 11px; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; padding: 7px 16px; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
 .case-body { padding: 32px 30px 36px; }
 .case-city { font-size: 10px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
 .case-name { font-family: var(--font-display); font-size: 25px; font-weight: 500; color: var(--dark); margin-bottom: 8px; line-height: 1.15; }
@@ -369,6 +371,7 @@ footer { background: var(--dark); padding: 64px 60px 40px; border-top: 1px solid
     <div class="object-image-wrap">
       <!-- [ФОТО] флагманский объект — заменить на фото комплекса Асеева -->
       <img class="object-img" src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=900&q=80" alt="Комплекс доходных домов М. В. Асеева, Тамбов">
+      <span class="object-city-on">Тамбов</span>
       <div class="object-badge">
         <span class="badge-num">38</span>
         <span class="badge-txt">Квартир</span>
@@ -416,6 +419,7 @@ footer { background: var(--dark); padding: 64px 60px 40px; border-top: 1px solid
         <!-- [ФОТО] Mr. Just's Hotel, Зеленоградск -->
         <img class="case-img" src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=700&q=80" alt="Mr. Just's Hotel, Зеленоградск">
         <span class="case-status">Реализован</span>
+        <span class="case-city-on">Зеленоградск</span>
       </div>
       <div class="case-body">
         <div class="case-city">Калининградская обл. · Зеленоградск</div>
@@ -435,6 +439,7 @@ footer { background: var(--dark); padding: 64px 60px 40px; border-top: 1px solid
         <!-- [ФОТО] Дом Богородицкой, Тула -->
         <img class="case-img" src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=700&q=80" alt="Жилой дом с торговым залом Д. Ф. Богородицкой, Тула">
         <span class="case-status work">В реставрации</span>
+        <span class="case-city-on">Тула</span>
       </div>
       <div class="case-body">
         <div class="case-city">Тула</div>
@@ -454,6 +459,7 @@ footer { background: var(--dark); padding: 64px 60px 40px; border-top: 1px solid
         <!-- [ФОТО] Здание детского сада, СПб, Лесной пр. 37 -->
         <img class="case-img" src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=700&q=80" alt="Здание детского сада, Санкт-Петербург, Лесной проспект 37">
         <span class="case-status work">В работе</span>
+        <span class="case-city-on">Санкт-Петербург</span>
       </div>
       <div class="case-body">
         <div class="case-city">Санкт-Петербург</div>
@@ -473,6 +479,7 @@ footer { background: var(--dark); padding: 64px 60px 40px; border-top: 1px solid
         <!-- [ФОТО] Зеленоградск, ул. Пугачева, 1 -->
         <img class="case-img" src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=700&q=80" alt="Доходный дом, Зеленоградск, ул. Пугачева 1">
         <span class="case-status work">Капитальный ремонт</span>
+        <span class="case-city-on">Зеленоградск</span>
       </div>
       <div class="case-body">
         <div class="case-city">Калининградская обл. · Зеленоградск</div>
@@ -492,6 +499,7 @@ footer { background: var(--dark); padding: 64px 60px 40px; border-top: 1px solid
         <!-- [ФОТО] Светлогорск, ул. Хуторская, 1 -->
         <img class="case-img" src="https://images.unsplash.com/photo-1460317442991-0ec209397118?w=700&q=80" alt="Новый жилой дом, Светлогорск, ул. Хуторская 1">
         <span class="case-status work">Строительство</span>
+        <span class="case-city-on">Светлогорск</span>
       </div>
       <div class="case-body">
         <div class="case-city">Калининградская обл. · Светлогорск</div>
@@ -511,6 +519,7 @@ footer { background: var(--dark); padding: 64px 60px 40px; border-top: 1px solid
         <!-- [ФОТО] Петергоф, ул. Суворовская, 3 -->
         <img class="case-img" src="https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?w=700&q=80" alt="Новый жилой дом, Петергоф, ул. Суворовская 3">
         <span class="case-status work">Строительство</span>
+        <span class="case-city-on">Петергоф</span>
       </div>
       <div class="case-body">
         <div class="case-city">Санкт-Петербург · Петергоф</div>
