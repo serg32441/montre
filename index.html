@@ -54,6 +54,7 @@ nav {
 .nav-links a:hover { color: var(--gold-light); }
 .nav-cta { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); border: 1px solid var(--gold); padding: 9px 18px; text-decoration: none; transition: all 0.3s; white-space: nowrap; flex-shrink: 0; }
 .nav-cta:hover { background: var(--gold); color: var(--dark); }
+.nav-cta .cta-short { display: none; }
 
 /* HERO */
 .hero { position: relative; min-height: 100vh; display: flex; align-items: center; overflow: hidden; background: var(--dark); padding: 124px 60px 90px; }
@@ -254,6 +255,11 @@ footer { background: var(--dark); padding: 64px 60px 40px; border-top: 1px solid
   .object-badge { right: 0; bottom: -14px; }
 }
 @media (max-width: 600px) {
+  nav { padding: 16px 18px; gap: 12px; }
+  .nav-logo { font-size: 19px; }
+  .nav-cta { padding: 9px 14px; letter-spacing: 0.06em; }
+  .nav-cta .cta-full { display: none; }
+  .nav-cta .cta-short { display: inline; }
   .hero h1 { font-size: 38px; }
   .form-row { grid-template-columns: 1fr; }
   .pl-grid { grid-template-columns: 1fr; }
@@ -275,7 +281,7 @@ footer { background: var(--dark); padding: 64px 60px 40px; border-top: 1px solid
     <li><a href="#faq">Вопросы</a></li>
     <li><a href="#contact">Контакты</a></li>
   </ul>
-  <a href="#contact" class="nav-cta">Получить презентацию</a>
+  <a href="#contact" class="nav-cta"><span class="cta-full">Получить презентацию</span><span class="cta-short">Презентация</span></a>
 </nav>
 
 <!-- HERO -->
