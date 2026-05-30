@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" rx="12" fill="#1A1714"/>
+  <rect x="4.5" y="4.5" width="55" height="55" rx="8.5" fill="none" stroke="#B8965A" stroke-width="1.4" opacity="0.45"/>
+  <!-- фронтон -->
+  <path d="M15 28 L32 15 L49 28 Z" fill="#B8965A"/>
+  <!-- архитрав -->
+  <rect x="16" y="29.5" width="32" height="3" fill="#B8965A"/>
+  <!-- колонны -->
+  <rect x="20" y="34" width="3.2" height="13" fill="#B8965A"/>
+  <rect x="30.4" y="34" width="3.2" height="13" fill="#B8965A"/>
+  <rect x="40.8" y="34" width="3.2" height="13" fill="#B8965A"/>
+  <!-- стилобат -->
+  <rect x="16" y="48.5" width="32" height="3.2" fill="#B8965A"/>
+</svg>
