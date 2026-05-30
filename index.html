@@ -127,7 +127,14 @@ section, .section { padding: 100px 60px; }
 
 /* FLAGSHIP OBJECT */
 .object-section { background: var(--dark); position: relative; overflow: hidden; }
-.object-section::before { content: 'АСЕЕВ'; position: absolute; right: -30px; top: 50%; transform: translateY(-50%) rotate(90deg); font-family: var(--font-display); font-size: 130px; font-weight: 600; color: rgba(184,150,90,0.05); white-space: nowrap; pointer-events: none; letter-spacing: 0.15em; }
+.object-section::before { content: ''; position: absolute; inset: -30px; z-index: 0;
+  /* фон-фактура: размытая затемнённая акварель объекта, как на первом экране */
+  background: url('assets/tambov-aseev.jpg') center / cover no-repeat;
+  filter: blur(13px) brightness(0.5) saturate(0.85); transform: scale(1.1); opacity: 0.3; }
+.object-section::after { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; background:
+  radial-gradient(900px 620px at 76% 30%, rgba(184,150,90,0.13), transparent 62%),
+  linear-gradient(105deg, rgba(14,11,8,0.82) 0%, rgba(14,11,8,0.62) 50%, rgba(14,11,8,0.84) 100%),
+  repeating-linear-gradient(90deg, rgba(184,150,90,0.05) 0 1px, transparent 1px 88px); }
 .object-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 2; }
 .object-image-wrap { position: relative; }
 .object-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; object-position: center; background: var(--dark-mid); }
