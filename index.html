@@ -2,10 +2,11 @@
 <!--
   АО «МОНТРЕ» — ДОХОДНЫЕ ДОМА · сайт для инвесторов
   ─────────────────────────────────────────────────────────────
-  Данные взяты из справки для банка. Перед публикацией заменить:
-    [ФОТО]     — изображения объектов помечены комментариями (сейчас временные)
-                 hero-фон: assets/hero.jpg (реальный объект из вашего проекта)
-    [КОНТАКТЫ] — телефон и e-mail помечены в разметке
+  Данные взяты из справки для банка.
+    [ФОТО]     — акварели объектов лежат в assets/ (tula.jpg, spb.jpg, svetlogorsk.jpg,
+                 petergof.jpg, zelenogradsk.jpg, mr-justs.jpg, tambov-aseev.jpg);
+                 hero-фон: assets/hero.jpg
+    [КОНТАКТЫ] — телефон +7 (926) 531-55-30, e-mail info@montrecapital.ru
   Оформление: единая тёплая гамма (кремовый / золото / графит), без курсива.
 -->
 <html lang="ru">
@@ -118,7 +119,7 @@ section, .section { padding: 100px 60px; }
 .object-section::before { content: 'АСЕЕВ'; position: absolute; right: -30px; top: 50%; transform: translateY(-50%) rotate(90deg); font-family: var(--font-display); font-size: 130px; font-weight: 600; color: rgba(184,150,90,0.05); white-space: nowrap; pointer-events: none; letter-spacing: 0.15em; }
 .object-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 2; }
 .object-image-wrap { position: relative; }
-.object-img { width: 100%; aspect-ratio: 4/5; object-fit: cover; object-position: center; background: var(--dark-mid); }
+.object-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; object-position: center; background: var(--dark-mid); }
 .object-badge { position: absolute; bottom: -20px; right: -20px; width: 110px; height: 110px; background: var(--gold); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
 .badge-num { font-family: var(--font-display); font-size: 34px; font-weight: 300; color: var(--dark); line-height: 1; }
 .badge-txt { font-size: 10px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dark-mid); }
@@ -370,7 +371,7 @@ footer { background: var(--dark); padding: 64px 60px 40px; border-top: 1px solid
   <div class="object-inner">
     <div class="object-image-wrap">
       <!-- [ФОТО] флагманский объект — заменить на фото комплекса Асеева -->
-      <img class="object-img" src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=900&q=80" alt="Комплекс доходных домов М. В. Асеева, Тамбов">
+      <img class="object-img" src="assets/tambov-aseev.jpg" alt="Комплекс доходных домов М. В. Асеева, Тамбов">
       <span class="object-city-on">Тамбов</span>
       <div class="object-badge">
         <span class="badge-num">38</span>
@@ -417,7 +418,7 @@ footer { background: var(--dark); padding: 64px 60px 40px; border-top: 1px solid
     <div class="case-card">
       <div class="case-img-wrap">
         <!-- [ФОТО] Mr. Just's Hotel, Зеленоградск -->
-        <img class="case-img" src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=700&q=80" alt="Mr. Just's Hotel, Зеленоградск">
+        <img class="case-img" src="assets/mr-justs.jpg" alt="Mr. Just's Hotel, Зеленоградск">
         <span class="case-status">Реализован</span>
         <span class="case-city-on">Зеленоградск</span>
       </div>
@@ -437,7 +438,7 @@ footer { background: var(--dark); padding: 64px 60px 40px; border-top: 1px solid
     <div class="case-card">
       <div class="case-img-wrap">
         <!-- [ФОТО] Дом Богородицкой, Тула -->
-        <img class="case-img" src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=700&q=80" alt="Жилой дом с торговым залом Д. Ф. Богородицкой, Тула">
+        <img class="case-img" src="assets/tula.jpg" alt="Жилой дом с торговым залом Д. Ф. Богородицкой, Тула">
         <span class="case-status work">В реставрации</span>
         <span class="case-city-on">Тула</span>
       </div>
@@ -457,7 +458,7 @@ footer { background: var(--dark); padding: 64px 60px 40px; border-top: 1px solid
     <div class="case-card">
       <div class="case-img-wrap">
         <!-- [ФОТО] Здание детского сада, СПб, Лесной пр. 37 -->
-        <img class="case-img" src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=700&q=80" alt="Здание детского сада, Санкт-Петербург, Лесной проспект 37">
+        <img class="case-img" src="assets/spb.jpg" alt="Здание детского сада, Санкт-Петербург, Лесной проспект 37">
         <span class="case-status work">В работе</span>
         <span class="case-city-on">Санкт-Петербург</span>
       </div>
@@ -477,7 +478,7 @@ footer { background: var(--dark); padding: 64px 60px 40px; border-top: 1px solid
     <div class="case-card">
       <div class="case-img-wrap">
         <!-- [ФОТО] Зеленоградск, ул. Пугачева, 1 -->
-        <img class="case-img" src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=700&q=80" alt="Доходный дом, Зеленоградск, ул. Пугачева 1">
+        <img class="case-img" src="assets/zelenogradsk.jpg" alt="Доходный дом, Зеленоградск, ул. Пугачева 1">
         <span class="case-status work">Капитальный ремонт</span>
         <span class="case-city-on">Зеленоградск</span>
       </div>
@@ -497,7 +498,7 @@ footer { background: var(--dark); padding: 64px 60px 40px; border-top: 1px solid
     <div class="case-card">
       <div class="case-img-wrap">
         <!-- [ФОТО] Светлогорск, ул. Хуторская, 1 -->
-        <img class="case-img" src="https://images.unsplash.com/photo-1460317442991-0ec209397118?w=700&q=80" alt="Новый жилой дом, Светлогорск, ул. Хуторская 1">
+        <img class="case-img" src="assets/svetlogorsk.jpg" alt="Новый жилой дом, Светлогорск, ул. Хуторская 1">
         <span class="case-status work">Строительство</span>
         <span class="case-city-on">Светлогорск</span>
       </div>
@@ -517,7 +518,7 @@ footer { background: var(--dark); padding: 64px 60px 40px; border-top: 1px solid
     <div class="case-card">
       <div class="case-img-wrap">
         <!-- [ФОТО] Петергоф, ул. Суворовская, 3 -->
-        <img class="case-img" src="https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?w=700&q=80" alt="Новый жилой дом, Петергоф, ул. Суворовская 3">
+        <img class="case-img" src="assets/petergof.jpg" alt="Новый жилой дом, Петергоф, ул. Суворовская 3">
         <span class="case-status work">Строительство</span>
         <span class="case-city-on">Петергоф</span>
       </div>
