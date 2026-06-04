@@ -222,19 +222,21 @@ for i,(t,d) in enumerate(factors):
 
 # правый блок — донат источников дохода
 rx=M+colw+40
+card_top=150; card_h=300
 c.setFillColor(CREAM); c.setStrokeColor(BORDER); c.setLineWidth(1)
-c.rect(rx,yt(fy+250),colw,260,fill=1,stroke=1)
-tracked(rx+20, fy+24, "ИСТОЧНИКИ ДОХОДА ИНВЕСТОРА", "Sans-B", 8.5, GOLD, 1.6)
-c.drawImage(ImageReader(f"{TMP}/sources.png"),rx+colw/2-80,yt(fy+185),160,160,mask='auto')
+c.rect(rx,yt(card_top+card_h),colw,card_h,fill=1,stroke=1)
+tracked(rx+22, card_top+34, "ИСТОЧНИКИ ДОХОДА ИНВЕСТОРА", "Sans-B", 8.5, GOLD, 1.4)
+ds=150
+c.drawImage(ImageReader(f"{TMP}/sources.png"),rx+colw/2-ds/2,yt(card_top+62+ds),ds,ds,mask='auto')
 # легенда
-ly=fy+200
-c.setFillColor(GOLD); c.rect(rx+24,yt(ly+9),11,11,fill=1,stroke=0)
-c.setFillColor(INK); c.setFont("Sans-B",9.5); c.drawString(rx+42,yt(ly),"Арендный поток — 70%")
-c.setFillColor(DARKMID); c.rect(rx+24,yt(ly+27),11,11,fill=1,stroke=0)
-c.setFillColor(INK); c.drawString(rx+42,yt(ly+18),"Рост стоимости актива — 30%")
+ly=card_top+232
+c.setFillColor(GOLD); c.rect(rx+24,yt(ly),11,11,fill=1,stroke=0)
+c.setFillColor(INK); c.setFont("Sans-B",9.5); c.drawString(rx+42,yt(ly+9),"Арендный поток — 70%")
+c.setFillColor(DARKMID); c.rect(rx+24,yt(ly+22),11,11,fill=1,stroke=0)
+c.setFillColor(INK); c.drawString(rx+42,yt(ly+31),"Рост стоимости актива — 30%")
 st=ParagraphStyle("n",fontName="Sans",fontSize=8,leading=11,textColor=MUTED)
 p=Paragraph("Иллюстративное распределение. Соотношение зависит от объекта и стратегии.",st)
-_,hh=p.wrap(colw-40,40); p.drawOn(c,rx+24,yt(fy+250)+14)
+_,hh=p.wrap(colw-44,60); p.drawOn(c,rx+24,yt(card_top+card_h-26)-hh)
 footer(4); c.showPage()
 
 # ════════════════════════════ СТР. 5 — ЭКОНОМИКА ══════════════════════════
