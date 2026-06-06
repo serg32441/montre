@@ -343,17 +343,19 @@ offers=[("Бесплатный расчёт доходности","по конк
         ("Приоритетный доступ","к новым объектам — до публичного предложения"),
         ("Личный осмотр и встреча","с командой — увидите объект и документы своими глазами"),
         ("Сопровождение сделки","и прозрачная отчётность на всём сроке участия")]
-ph=2*86+16
+pad=28; rh=52; gapb=20
+ph=pad*2+2*rh+gapb
 c.setFillColor(TINT); c.rect(M,yt(oy+ph),W-2*M,ph,fill=1,stroke=0)
 c.setStrokeColor(GOLD); c.setLineWidth(1.2); c.rect(M,yt(oy+ph),W-2*M,ph,fill=0,stroke=1)
-icw=(W-2*M-40)/2
+icw=(W-2*M-52)/2
 for i,(t,d) in enumerate(offers):
-    col=i%2; rw=i//2; x=M+24+col*icw; top=oy+18+rw*86
-    c.setFillColor(GOLD); c.saveState(); c.translate(x+5,yt(top+4)); c.rotate(45)
-    c.rect(-4,-4,8,8,fill=1,stroke=0); c.restoreState()
-    c.setFont("Serif-B",13); c.setFillColor(INK); c.drawString(x+20,yt(top),t)
+    col=i%2; rw=i//2; x=M+26+col*(icw+0)
+    ttop=oy+pad+12+rw*(rh+gapb)
+    c.setFillColor(GOLD); c.saveState(); c.translate(x+5,yt(ttop-3)); c.rotate(45)
+    c.rect(-3.5,-3.5,7,7,fill=1,stroke=0); c.restoreState()
+    c.setFont("Serif-B",13); c.setFillColor(INK); c.drawString(x+20,yt(ttop),t)
     st=ParagraphStyle("o",fontName="Sans",fontSize=9.5,leading=13.5,textColor=BODY)
-    p=Paragraph(d,st); _,hh=p.wrap(icw-44,60); p.drawOn(c,x+20,yt(top+16)-hh)
+    p=Paragraph(d,st); _,hh=p.wrap(icw-46,60); p.drawOn(c,x+20,yt(ttop+16)-hh)
 # призыв
 cy=oy+ph+40
 st=ParagraphStyle("c",fontName="Serif-B",fontSize=17,leading=23,textColor=INK,alignment=TA_CENTER)
