@@ -1,448 +1,377 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""АО «Монтре» — презентация для инвесторов (PDF)."""
+"""Монтре Кэпитал — информационный бюллетень для инвесторов (светлый дизайн)."""
 import os
+import build_charts  # регенерирует графики в /tmp/deck
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4
-from reportlab.lib.units import mm
 from reportlab.lib.utils import ImageReader
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import Paragraph
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.colors import HexColor
+from reportlab.lib.enums import TA_JUSTIFY, TA_CENTER, TA_LEFT
 from PIL import Image
 
-A = "/home/user/sochi-photographer/assets"
-TMP = "/tmp/deck"
-OUT = f"{A}/montre-investor-deck.pdf"
-W, H = A4  # 595.27 x 841.89
+A="/home/user/sochi-photographer/assets"; TMP="/tmp/deck"
+OUT=f"{A}/montre-investor-deck.pdf"
+W,H=A4
+LF="/usr/share/fonts/truetype/liberation/"
+pdfmetrics.registerFont(TTFont("Serif",LF+"LiberationSerif-Regular.ttf"))
+pdfmetrics.registerFont(TTFont("Serif-B",LF+"LiberationSerif-Bold.ttf"))
+pdfmetrics.registerFont(TTFont("Sans",LF+"LiberationSans-Regular.ttf"))
+pdfmetrics.registerFont(TTFont("Sans-B",LF+"LiberationSans-Bold.ttf"))
 
-# ── шрифты ──
-LF = "/usr/share/fonts/truetype/liberation/"
-pdfmetrics.registerFont(TTFont("Serif", LF+"LiberationSerif-Regular.ttf"))
-pdfmetrics.registerFont(TTFont("Serif-B", LF+"LiberationSerif-Bold.ttf"))
-pdfmetrics.registerFont(TTFont("Sans", LF+"LiberationSans-Regular.ttf"))
-pdfmetrics.registerFont(TTFont("Sans-B", LF+"LiberationSans-Bold.ttf"))
-
-# ── гамма ──
-CREAM=HexColor("#F5F0E8"); WW=HexColor("#FAF8F4"); GOLD=HexColor("#B8965A")
-GOLDL=HexColor("#D4B07A"); DARK=HexColor("#1A1714"); DARKMID=HexColor("#2E2A26")
-MUTED=HexColor("#7A746C"); BORDER=HexColor("#E4DAC8"); INK=HexColor("#2B2820")
-
-M = 52  # поля
-c = canvas.Canvas(OUT, pagesize=A4)
-
-def yt(top): return H-top
-
-def tracked(x, top, text, font, size, color, tr, center=False, right=False):
-    # посимвольный вывод с трекингом — без утечки состояния char-space
-    c.setFont(font, size); c.setFillColor(color)
-    widths = [pdfmetrics.stringWidth(ch, font, size) for ch in text]
-    total = sum(widths) + tr*max(0, len(text)-1)
-    cx = x - total/2 if center else (x - total if right else x)
-    yy = yt(top)
-    for ch, w in zip(text, widths):
-        c.drawString(cx, yy, ch); cx += w + tr
-
-def bg(dark=False):
-    c.setFillColor(DARK if dark else WW)
-    c.rect(0,0,W,H,fill=1,stroke=0)
-
-def eyebrow(x, top, text, color=GOLD):
-    tracked(x, top, text.upper(), "Sans-B", 8.5, color, 2.6)
-
-def title(x, top, text, size=25, color=INK, font="Serif-B"):
-    c.setFont(font, size); c.setFillColor(color)
-    c.drawString(x, yt(top), text)
-
-def rule(x, top, w, color=GOLD, lw=1):
-    c.setStrokeColor(color); c.setLineWidth(lw)
-    c.line(x, yt(top), x+w, yt(top))
-
-def para(text, x, top, w, size=10.5, leading=16, color=INK, font="Sans",
-         align=4, space=0):
-    st = ParagraphStyle("s", fontName=font, fontSize=size, leading=leading,
-                        textColor=color, alignment=align, spaceAfter=space)
-    p = Paragraph(text, st); _, h = p.wrap(w, 1000); p.drawOn(c, x, yt(top)-h)
-    return top + h
-
+# ── светлая гамма ──
+PAPER=HexColor("#F7F3EC"); CARD=HexColor("#FCFAF5"); TINT=HexColor("#EFE6D5")
+INK=HexColor("#24211C"); BODY=HexColor("#423B31"); GOLD=HexColor("#B0863B")
+GOLDF=HexColor("#CBA461"); MUTED=HexColor("#8C8475"); LINE=HexColor("#E2D8C6")
+M=54
+TOTAL=9
+c=canvas.Canvas(OUT,pagesize=A4)
+def yt(t): return H-t
+def bg(): c.setFillColor(PAPER); c.rect(0,0,W,H,fill=1,stroke=0)
+def rule(x,top,w,col=GOLD,lw=1):
+    c.setStrokeColor(col); c.setLineWidth(lw); c.line(x,yt(top),x+w,yt(top))
+def tracked(x,top,text,font,size,color,tr,center=False,right=False):
+    c.setFont(font,size); c.setFillColor(color)
+    ws=[pdfmetrics.stringWidth(ch,font,size) for ch in text]
+    tot=sum(ws)+tr*max(0,len(text)-1)
+    cx=x-tot/2 if center else (x-tot if right else x); yy=yt(top)
+    for ch,w in zip(text,ws): c.drawString(cx,yy,ch); cx+=w+tr
+def title(x,top,text,size=24,color=INK,font="Serif-B"):
+    c.setFont(font,size); c.setFillColor(color); c.drawString(x,yt(top),text)
+def para(text,x,top,w,size=10.5,leading=16,color=BODY,font="Sans",align=TA_JUSTIFY,space=0):
+    st=ParagraphStyle("s",fontName=font,fontSize=size,leading=leading,textColor=color,
+                      alignment=align,spaceAfter=space)
+    p=Paragraph(text,st); _,h=p.wrap(w,2000); p.drawOn(c,x,yt(top)-h); return top+h
+def eyebrow(x,top,text,color=GOLD): tracked(x,top,text.upper(),"Sans-B",8.5,color,2.4)
+def section(kicker,headline,top=66,hsize=25):
+    eyebrow(M,top,kicker); title(M,top+30,headline,size=hsize); rule(M,top+48,44,GOLD,2)
+    return top+78
 def footer(n):
-    rule(M, 800, W-2*M, BORDER, 0.8)
-    c.setFont("Sans", 7.5); c.setFillColor(MUTED)
-    c.drawString(M, yt(812), "АО «Монтре» · Презентация для инвесторов")
-    c.drawRightString(W-M, yt(812), f"{n:02d}")
-    c.setFillColor(GOLD)
-    c.drawCentredString(W/2, yt(812), "montrecapital.ru")
-
-def crop_cover(src, ratio, key):
-    im = Image.open(src).convert("RGB"); w,h = im.size
-    tr = ratio
-    if w/h > tr:
-        nw = int(h*tr); im = im.crop(((w-nw)//2,0,(w-nw)//2+nw,h))
+    rule(M,804,W-2*M,LINE,0.8); c.setFont("Sans",7.5); c.setFillColor(MUTED)
+    c.drawString(M,yt(816),"Монтре Кэпитал · Бюллетень для инвесторов")
+    c.setFillColor(GOLD); c.drawCentredString(W/2,yt(816),"montrecapital.ru")
+    c.setFillColor(MUTED); c.drawRightString(W-M,yt(816),f"{n} / {TOTAL}")
+def crop_cover(src,ratio,key):
+    im=Image.open(src).convert("RGB"); w,h=im.size
+    if w/h>ratio:
+        nw=int(h*ratio); im=im.crop(((w-nw)//2,0,(w-nw)//2+nw,h))
     else:
-        nh = int(w/tr); im = im.crop((0,(h-nh)//2,w,(h-nh)//2+nh))
-    out = f"{TMP}/c_{key}.jpg"; im.save(out, quality=88); return out
+        nh=int(w/ratio); im=im.crop((0,(h-nh)//2,w,(h-nh)//2+nh))
+    out=f"{TMP}/c_{key}.jpg"; im.save(out,quality=88); return out
+def img_box(src,x,top,w,h,key):
+    p=crop_cover(src,w/h,key); c.drawImage(p,x,yt(top)-h,w,h)
 
-def img_box(src, x, top, w, h, ratio=None, radius=0):
-    if ratio is None: ratio = w/h
-    p = crop_cover(src, ratio, f"{int(x)}_{int(top)}_{int(w)}")
-    c.drawImage(p, x, yt(top)-h, w, h, mask='auto')
-
-# ════════════════════════════ СТР. 1 — ОБЛОЖКА ════════════════════════════
-bg(dark=True)
-# тонкая золотая рамка
-c.setStrokeColor(GOLD); c.setLineWidth(1)
-c.rect(28,28,W-56,H-56,fill=0,stroke=1)
-c.setStrokeColor(HexColor("#3a3026")); c.setLineWidth(0.6)
-c.rect(34,34,W-68,H-68,fill=0,stroke=1)
-# логотип
-logo = ImageReader(f"{A}/logo.png")
-lw = 210; lh = lw*(1480/1065)  # пропорции logo.png
-c.drawImage(logo, (W-lw)/2, H-150-lh, lw, lh, mask='auto')
-# заголовок
-c.setFillColor(CREAM); c.setFont("Serif-B", 33)
-c.drawCentredString(W/2, 330, "Доходные дома")
-c.setFont("Serif", 21); c.setFillColor(GOLDL)
-c.drawCentredString(W/2, 298, "инвестиции в реальные активы")
-# линия
-c.setStrokeColor(GOLD); c.setLineWidth(1); c.line(W/2-40, 270, W/2+40, 270)
-tracked(W/2, H-243, "ПРЕЗЕНТАЦИЯ ДЛЯ ИНВЕСТОРОВ", "Sans", 11, HexColor("#C9C2B6"), 3, center=True)
-# низ
-c.setFont("Sans", 9.5); c.setFillColor(HexColor("#8a8276"))
-c.drawCentredString(W/2, 70, "2026 · montrecapital.ru")
-c.showPage()
-
-# ════════════════════════════ СТР. 2 — О КОМПАНИИ ═════════════════════════
+# ═══════════════════════ 1 · ОБЛОЖКА / МАСТХЕД ═══════════════════════
 bg()
-eyebrow(M, 70, "О компании")
-title(M, 100, "Возвращаем зданиям историю,")
-title(M, 130, "создаём арендный доход")
-rule(M, 150, 46, GOLD, 2)
-y = para(
- "АО «Монтре» развивает сеть доходных домов в России. Мы выкупаем исторические "
- "и недооценённые здания, проводим реставрацию и качественный ремонт и сдаём "
- "готовые помещения в долгосрочную аренду. С 2023 года компания планомерно "
- "формирует портфель: участвует в муниципальных аукционах и приобретает объекты "
- "в собственность или долгосрочную аренду на срок не менее 49 лет.",
- M, 176, W-2*M, leading=17, color=DARKMID)
-y = para(
- "Особый фокус — объекты культурного наследия, которые мы приспосабливаем для "
- "современного использования, сохраняя облик памятника. Такой продукт дефицитен, "
- "устойчив в цене и востребован на рынке аренды.",
- M, y+10, W-2*M, leading=17, color=DARKMID)
+rule(M,46,W-2*M,INK,1.4)
+ink=ImageReader(f"{A}/logo-ink.png"); lw=120; lh=lw*(1324/996)
+# в мастхеде — компактная надпись справа, лого-марка слева не нужна: используем текст-марку
+c.drawImage(ink,M,yt(96)-0,86,86*(1324/996)*0.0+86,mask='auto') if False else None
+tracked(M,70,"МОНТРЕ КЭПИТАЛ","Serif-B",15,INK,1.2)
+tracked(W-M,66,"БЮЛЛЕТЕНЬ ДЛЯ ИНВЕСТОРОВ","Sans-B",8,GOLD,1.6,right=True)
+tracked(W-M,78,"ВЫПУСК № 1 · 2026","Sans",8,MUTED,1.4,right=True)
+rule(M,86,W-2*M,INK,2); rule(M,90,W-2*M,GOLD,0.8)
+# лид
+eyebrow(M,128,"Доходная недвижимость")
+c.setFont("Serif-B",30); c.setFillColor(INK)
+c.drawString(M,yt(166),"Как старые здания становятся")
+c.drawString(M,yt(200),"источником стабильного дохода")
+para("Модель доходных домов известна больше века: здание приобретают, "
+     "приводят в порядок и сдают в аренду. Разбираемся, почему сегодня это снова "
+     "один из самых понятных способов вложить средства в реальный актив — и как "
+     "компания «Монтре Кэпитал» сделала эту модель повторяемой в разных городах России.",
+     M,224,W-2*M,size=11.5,leading=18,color=BODY)
+# изображение-баннер
+img_box(f"{A}/tambov-aseev.jpg",M,300,W-2*M,250,"hero")
+c.setFont("Sans",8); c.setFillColor(MUTED)
+c.drawString(M,yt(566),"Комплекс доходных домов М. В. Асеева, Тамбов — один из объектов компании.")
+# содержание выпуска
+ry=600
+rule(M,ry,W-2*M,LINE,0.8)
+tracked(M,ry+20,"В ЭТОМ ВЫПУСКЕ","Sans-B",8.5,GOLD,2)
+items=["История модели","Экономика и доходность","Объекты в разных городах","Как стать участником"]
+cw=(W-2*M)/4
+for i,t in enumerate(items):
+    x=M+i*cw
+    c.setFont("Serif-B",11); c.setFillColor(INK); c.drawString(x,yt(ry+44),f"0{i+1}")
+    st=ParagraphStyle("t",fontName="Sans",fontSize=9,leading=12,textColor=BODY)
+    p=Paragraph(t,st); _,hh=p.wrap(cw-16,40); p.drawOn(c,x+22,yt(ry+48)-hh+6)
+footer(1); c.showPage()
 
-# карточки-цифры
-stats=[("20+","аукционов пройдено с 2023 года"),
-       ("6","объектов в собственности и аренде"),
-       ("7 700","м² в текущих проектах"),
-       ("49","лет — горизонт долгосрочной аренды")]
-bx=M; bw=(W-2*M-3*14)/4; bh=92; topcards=y+34
-for i,(num,lab) in enumerate(stats):
-    x=bx+i*(bw+14)
-    c.setFillColor(CREAM); c.setStrokeColor(BORDER); c.setLineWidth(1)
-    c.rect(x, yt(topcards+bh), bw, bh, fill=1, stroke=1)
-    c.setFillColor(GOLD); c.setStrokeColor(GOLD); c.setLineWidth(2)
-    c.line(x, yt(topcards+bh), x+bw, yt(topcards+bh))
-    c.setFont("Serif-B", 25); c.setFillColor(INK)
-    c.drawString(x+12, yt(topcards+34), num)
-    st=ParagraphStyle("c",fontName="Sans",fontSize=8.6,leading=11.5,textColor=MUTED)
-    Paragraph(lab,st).wrapOn(c,bw-22,60)
-    p=Paragraph(lab,st); _,hh=p.wrap(bw-22,60); p.drawOn(c,x+12,yt(topcards+bh)+12)
-
-# принципы
-py=topcards+bh+40
-eyebrow(M, py, "Что отличает нашу модель")
-prin=[("Реальные активы","За каждым проектом — конкретное здание с адресом и документами."),
-      ("Полный цикл","Выкуп, реставрация, ремонт и управление арендой — под единым контролем."),
-      ("Прозрачность","Понятная отчётность по стадиям проекта и арендным поступлениям.")]
-cw=(W-2*M-2*16)/3; cy=py+18
-for i,(t,d) in enumerate(prin):
-    x=M+i*(cw+16)
-    c.setFillColor(GOLD); c.setFont("Serif-B",13); c.drawString(x,yt(cy+4),t)
-    st=ParagraphStyle("p",fontName="Sans",fontSize=9.3,leading=14,textColor=DARKMID)
-    p=Paragraph(d,st); _,hh=p.wrap(cw,80); p.drawOn(c,x,yt(cy+22)-hh)
+# ═══════════════════════ 2 · ИСТОРИЯ ═══════════════════════
+bg()
+y=section("История компании","Путь к проверенной модели")
+y=para("Компания, которая сегодня работает под брендом «Монтре Кэпитал», "
+ "была основана ещё в 2006 году, но долгое время оставалась без активной "
+ "деятельности. Поворот произошёл в 2023 году: команда поставила задачу — "
+ "построить бизнес на реальных активах, а не на обещаниях.",
+ M,y+8,W-2*M,leading=17)
+y=para("Выбор пал на доходные дома. Но компания подошла к модели системно. Были "
+ "сформулированы строгие критерии отбора городов: население от 350 тысяч человек, "
+ "устойчивая демография, развитая промышленность и удобная логистика — не более "
+ "двух часов перелёта до Москвы без пересадок.",
+ M,y+10,W-2*M,leading=17)
+y=para("С этими критериями компания вышла на муниципальные аукционы. За короткое "
+ "время — участие более чем в 20 аукционах в 13 городах: от Калининграда и "
+ "Санкт-Петербурга до Тамбова, Тулы, Екатеринбурга и Барнаула. Результат — шесть "
+ "приобретённых объектов, пять из которых имеют статус объектов культурного наследия.",
+ M,y+10,W-2*M,leading=17)
+# цитата
+qy=y+28
+c.setFillColor(TINT); c.rect(M,yt(qy+70),W-2*M,70,fill=1,stroke=0)
+c.setFillColor(GOLD); c.rect(M,yt(qy+70),4,70,fill=1,stroke=0)
+st=ParagraphStyle("q",fontName="Serif-B",fontSize=15,leading=21,textColor=INK)
+p=Paragraph("«Мы искали не быструю прибыль, а модель, которая одинаково надёжно "
+            "работает в любом городе».",st)
+_,hh=p.wrap(W-2*M-50,80); p.drawOn(c,M+26,yt(qy+70)+(70-hh)/2)
+# таймлайн
+ty=qy+120
+tracked(M,ty,"ХРОНОЛОГИЯ","Sans-B",8.5,GOLD,2)
+tl=[("2006","Основание компании"),("2023","Старт программы доходных домов"),
+    ("2024","Формирование группы"),("Сегодня","6 объектов · 7 700 м² в работе")]
+lx=M+8; rx=W-M-8; node_y=ty+44; step=(rx-lx)/3
+rule(lx,node_y,rx-lx,LINE,1.2)
+for i,(yr,desc) in enumerate(tl):
+    x=lx+i*step
+    c.setFillColor(GOLD); c.circle(x,yt(node_y),5,fill=1,stroke=0)
+    c.setFont("Serif-B",15); c.setFillColor(INK); c.drawCentredString(x,yt(node_y-16),yr)
+    st=ParagraphStyle("d",fontName="Sans",fontSize=8.6,leading=11.5,textColor=BODY,alignment=TA_CENTER)
+    p=Paragraph(desc,st); _,hh=p.wrap(step-12,50); p.drawOn(c,x-(step-12)/2,yt(node_y+18)-hh)
+# итог
+para("Так выкристаллизовалась модель, которую можно повторять: одни и те же "
+ "принципы работают в разных городах и на разных типах зданий. Сегодня проекты "
+ "объединены в группу, а накопленный опыт позволяет приглашать в них частных инвесторов.",
+ M,ty+120,W-2*M,leading=17,color=BODY)
 footer(2); c.showPage()
 
-# ════════════════════════════ СТР. 3 — БИЗНЕС-МОДЕЛЬ ══════════════════════
+# ═══════════════════════ 3 · МОДЕЛЬ ═══════════════════════
 bg()
-eyebrow(M,70,"Бизнес-модель")
-title(M,100,"Полный цикл — от аукциона до аренды")
-rule(M,120,46,GOLD,2)
-para("Каждый объект проходит один и тот же выверенный путь. Это делает результат "
-     "предсказуемым, а для инвестора — понятным на любом этапе.",
-     M,146,W-2*M,leading=16,color=DARKMID)
-
-steps=[("01","Выкуп объекта","Покупка зданий в сильных локациях на аукционах — в собственность или аренду на 49 лет."),
-       ("02","Реставрация","Восстановление фасада и инженерии, приспособление памятника к новому использованию."),
-       ("03","Ремонт и запуск","Создание готового арендного жилья и заселение арендаторов."),
-       ("04","Доход и рост","Регулярный арендный поток и рост стоимости самого актива.")]
-top=215; cw=(W-2*M-3*14)/4
+y=section("Бизнес-модель","Идея проста")
+y=para("В основе — проверенная веками идея: превратить недооценённое здание в "
+ "источник арендного дохода. Мы разложили её на четыре повторяемых шага.",
+ M,y+8,W-2*M,leading=17)
+steps=[("01","Находим объект","Здание в сильной локации, которое можно купить ниже его потенциальной стоимости — часто это памятник архитектуры."),
+       ("02","Приводим в порядок","Реставрация и качественный ремонт. Объект культурного наследия приспосабливается к современному использованию."),
+       ("03","Сдаём в аренду","Готовые квартиры заселяются арендаторами. Здание начинает приносить регулярный доход."),
+       ("04","Получаем доход","Арендный поток плюс постепенный рост стоимости самого актива — два источника дохода одновременно.")]
+top=y+34
 for i,(n,t,d) in enumerate(steps):
-    x=M+i*(cw+14)
-    cx=x+26; cyc=yt(top+26)
-    c.setStrokeColor(GOLD); c.setLineWidth(1.4); c.circle(cx,cyc,22,fill=0,stroke=1)
-    c.setFont("Serif-B",15); c.setFillColor(GOLD); c.drawCentredString(cx,cyc-6,n)
-    if i<3:
-        c.setStrokeColor(GOLDL); c.setLineWidth(1)
-        c.line(x+54,cyc, x+cw+8,cyc)
-    c.setFont("Serif-B",13.5); c.setFillColor(INK); c.drawString(x,yt(top+74),t)
-    st=ParagraphStyle("s",fontName="Sans",fontSize=9.2,leading=13.5,textColor=DARKMID)
-    p=Paragraph(d,st); _,hh=p.wrap(cw,140); p.drawOn(c,x,yt(top+92)-hh)
-
-# нижний акцент-блок
-by=406
-c.setFillColor(DARK); c.rect(M,yt(by+118),W-2*M,118,fill=1,stroke=0)
-c.setFillColor(GOLD); c.setFont("Serif-B",16)
-c.drawString(M+30,yt(by+44),"Контроль на всех этапах — внутри компании")
-st=ParagraphStyle("x",fontName="Sans",fontSize=10.5,leading=16,textColor=HexColor("#CFC8BC"))
-p=Paragraph("Мы не зависим от случайных подрядчиков: отбор объекта, строительство, "
-            "реставрация и последующее управление арендой выполняются в рамках единой "
-            "группы. Это снижает риски сроков и качества и делает экономику проекта прозрачной.",st)
-_,hh=p.wrap(W-2*M-60,120); p.drawOn(c,M+30,yt(by+62)-hh)
+    row=i//2; col=i%2
+    x=M+col*((W-2*M)/2+14); yy=top+row*120
+    c.setFont("Serif-B",30); c.setFillColor(GOLDF); c.drawString(x,yt(yy+8),n)
+    c.setFont("Serif-B",14); c.setFillColor(INK); c.drawString(x+54,yt(yy),t)
+    st=ParagraphStyle("s",fontName="Sans",fontSize=9.6,leading=14.5,textColor=BODY)
+    p=Paragraph(d,st); _,hh=p.wrap((W-2*M)/2-70,90); p.drawOn(c,x+54,yt(yy+16)-hh)
+# вывод
+by=top+250
+c.setFillColor(TINT); c.rect(M,yt(by+58),W-2*M,58,fill=1,stroke=0)
+c.setFillColor(GOLD); c.rect(M,yt(by+58),4,58,fill=1,stroke=0)
+st=ParagraphStyle("x",fontName="Serif-B",fontSize=13,leading=18,textColor=INK)
+p=Paragraph("Одни и те же шаги — в Калининграде, Тамбове или Санкт-Петербурге. "
+            "Именно повторяемость делает модель надёжной и предсказуемой.",st)
+_,hh=p.wrap(W-2*M-50,80); p.drawOn(c,M+26,yt(by+58)+(58-hh)/2)
 footer(3); c.showPage()
 
-# ════════════════════════════ СТР. 4 — ПОЧЕМУ ════════════════════════════
+# ═══════════════════════ 4 · ПОЧЕМУ РАБОТАЕТ ═══════════════════════
 bg()
-eyebrow(M,70,"Почему доходные дома")
-title(M,100,"Устойчивый спрос и понятный доход")
-rule(M,120,46,GOLD,2)
-colw=(W-2*M-40)/2
-factors=[("Снижение доступности покупки","Высокие ставки и ужесточение ипотеки переориентируют спрос с покупки на аренду качественного жилья."),
-         ("Рост мобильности","Всё больше людей выбирают гибкость аренды вместо долгосрочных обязательств при покупке."),
-         ("Дефицит качества","Рынок профессиональной долгосрочной аренды в российских городах только формируется.")]
-fy=160
+y=section("Анализ рынка","Почему аренда — устойчивый класс активов")
+y=para("Спрос на качественную долгосрочную аренду в России растёт не из-за моды, "
+ "а под действием структурных причин. Они работают вдолгую — и именно это важно для инвестора.",
+ M,y+8,W-2*M,leading=17)
+factors=[("Покупка стала дороже","Высокие ставки и ужесточение ипотеки сдвигают спрос от покупки к аренде качественного жилья."),
+         ("Люди стали мобильнее","Гибкость аренды всё чаще предпочитают долгосрочным обязательствам при покупке недвижимости."),
+         ("Качества не хватает","Рынок профессиональной долгосрочной аренды в российских городах только формируется — спрос опережает предложение.")]
+fy=y+34
 for i,(t,d) in enumerate(factors):
-    yy=fy+i*78
-    c.setFont("Serif-B",13); c.setFillColor(GOLD)
-    c.drawString(M,yt(yy),f"0{i+1}")
-    c.setFillColor(INK); c.drawString(M+30,yt(yy),t)
-    st=ParagraphStyle("f",fontName="Sans",fontSize=9.6,leading=14,textColor=DARKMID)
-    p=Paragraph(d,st); _,hh=p.wrap(colw-30,80); p.drawOn(c,M+30,yt(yy+16)-hh)
-
-# правый блок — донат источников дохода
-rx=M+colw+40
-card_top=150; card_h=300
-c.setFillColor(CREAM); c.setStrokeColor(BORDER); c.setLineWidth(1)
-c.rect(rx,yt(card_top+card_h),colw,card_h,fill=1,stroke=1)
-tracked(rx+22, card_top+34, "ИСТОЧНИКИ ДОХОДА ИНВЕСТОРА", "Sans-B", 8.5, GOLD, 1.4)
-ds=150
-c.drawImage(ImageReader(f"{TMP}/sources.png"),rx+colw/2-ds/2,yt(card_top+62+ds),ds,ds,mask='auto')
-# легенда
-ly=card_top+232
-c.setFillColor(GOLD); c.rect(rx+24,yt(ly),11,11,fill=1,stroke=0)
-c.setFillColor(INK); c.setFont("Sans-B",9.5); c.drawString(rx+42,yt(ly+9),"Арендный поток — 70%")
-c.setFillColor(DARKMID); c.rect(rx+24,yt(ly+22),11,11,fill=1,stroke=0)
-c.setFillColor(INK); c.drawString(rx+42,yt(ly+31),"Рост стоимости актива — 30%")
-st=ParagraphStyle("n",fontName="Sans",fontSize=8,leading=11,textColor=MUTED)
-p=Paragraph("Иллюстративное распределение. Соотношение зависит от объекта и стратегии.",st)
-_,hh=p.wrap(colw-44,60); p.drawOn(c,rx+24,yt(card_top+card_h-26)-hh)
+    yy=fy+i*80
+    c.setFont("Serif-B",20); c.setFillColor(GOLDF); c.drawString(M,yt(yy),f"0{i+1}")
+    c.setFont("Serif-B",14); c.setFillColor(INK); c.drawString(M+44,yt(yy),t)
+    st=ParagraphStyle("f",fontName="Sans",fontSize=10,leading=15,textColor=BODY)
+    p=Paragraph(d,st); _,hh=p.wrap(W-2*M-44,80); p.drawOn(c,M+44,yt(yy+18)-hh)
+# акцент
+ay=fy+255
+c.setFillColor(INK); c.rect(M,yt(ay+86),W-2*M,86,fill=1,stroke=0)
+c.setFillColor(GOLDF); c.rect(M,yt(ay+86),4,86,fill=1,stroke=0)
+st=ParagraphStyle("a",fontName="Serif-B",fontSize=16,leading=22,textColor=PAPER)
+p=Paragraph("Доходный дом — это доход от реального актива, защищённого от инфляции "
+            "самими стенами и землёй. Не котировки на экране, а здание, которое можно увидеть.",st)
+_,hh=p.wrap(W-2*M-50,100); p.drawOn(c,M+26,yt(ay+86)+(86-hh)/2)
 footer(4); c.showPage()
 
-# ════════════════════════════ СТР. 5 — ЭКОНОМИКА ══════════════════════════
+# ═══════════════════════ 5 · ЭКОНОМИКА ═══════════════════════
 bg()
-eyebrow(M,70,"Экономика объекта")
-title(M,100,"Как формируется доход инвестора")
-rule(M,120,46,GOLD,2)
-para("Доход складывается из арендных платежей и постепенного роста стоимости "
-     "отреставрированного здания. Ниже — ориентировочная модель окупаемости.",
-     M,146,W-2*M,leading=16,color=DARKMID)
-# график окупаемости
-c.drawImage(ImageReader(f"{TMP}/payback.png"),M,yt(190+255),300,255,mask='auto')
-# правый блок — ключевые метрики
-rx=M+320; rw=W-M-rx
-metrics=[("10–14%","доходность от аренды в год (прогноз)"),
-         ("8–9 лет","ориентировочная окупаемость"),
-         ("49 лет","горизонт аренды / собственность")]
-my=188
-for num,lab in metrics:
-    c.setFillColor(CREAM); c.setStrokeColor(BORDER); c.setLineWidth(1)
-    c.rect(rx,yt(my+72),rw,72,fill=1,stroke=1)
-    c.setStrokeColor(GOLD); c.setLineWidth(3); c.line(rx,yt(my),rx,yt(my+72))
-    c.setFont("Serif-B",22); c.setFillColor(INK); c.drawString(rx+16,yt(my+34),num)
-    c.setFont("Sans",9); c.setFillColor(MUTED)
-    st=ParagraphStyle("m",fontName="Sans",fontSize=8.8,leading=11,textColor=MUTED)
-    p=Paragraph(lab,st);_,hh=p.wrap(rw-28,40);p.drawOn(c,rx+16,yt(my+72)+10)
-    my+=84
-
-# таблица-пример
-ty=470
-eyebrow(M,ty,"Пример структуры проекта")
-rows=[("Площадь объекта","≈ 650 м²"),
-      ("Назначение","24 квартиры под долгосрочную аренду"),
+y=section("Экономика","Что формирует доход инвестора")
+para("Доход складывается из двух источников: арендных платежей и постепенного роста "
+     "стоимости отреставрированного здания. Ниже — ориентировочная модель окупаемости.",
+     M,y+8,W-2*M,leading=17)
+c.drawImage(ImageReader(f"{TMP}/payback.png"),M,yt(y+44+255),300,255,mask='auto')
+rx=M+320; rw=W-M-rx; my=y+42
+for num,lab in [("10–14%","доходность от аренды в год (прогноз)"),
+                ("8–9 лет","ориентировочная окупаемость"),
+                ("2 источника","аренда + рост стоимости актива")]:
+    c.setFillColor(CARD); c.setStrokeColor(LINE); c.setLineWidth(1)
+    c.rect(rx,yt(my+74),rw,74,fill=1,stroke=1)
+    c.setStrokeColor(GOLD); c.setLineWidth(3); c.line(rx,yt(my),rx,yt(my+74))
+    c.setFont("Serif-B",21); c.setFillColor(INK); c.drawString(rx+16,yt(my+34),num)
+    st=ParagraphStyle("m",fontName="Sans",fontSize=8.8,leading=11.5,textColor=MUTED)
+    p=Paragraph(lab,st);_,hh=p.wrap(rw-28,40);p.drawOn(c,rx+16,yt(my+74)+10); my+=86
+ty=y+330
+tracked(M,ty,"ПРИМЕР СТРУКТУРЫ ПРОЕКТА","Sans-B",8.5,GOLD,2)
+rows=[("Площадь объекта","≈ 650 м²"),("Назначение","24 квартиры под аренду"),
       ("Стадия","выкуп → реставрация → аренда"),
-      ("Источник дохода инвестора","арендный поток + рост стоимости актива"),
-      ("Форма участия","фиксируется договором по выбранному объекту")]
+      ("Доход инвестора","арендный поток + рост стоимости актива"),
+      ("Форма участия","фиксируется договором по объекту")]
 ry=ty+22
-for i,(k,v) in enumerate(rows):
+for k,v in rows:
     c.setFont("Sans",10); c.setFillColor(MUTED); c.drawString(M,yt(ry+12),k)
     c.setFont("Sans-B",10.5); c.setFillColor(INK); c.drawRightString(W-M,yt(ry+12),v)
-    rule(M,ry+22,W-2*M,BORDER,0.7); ry+=34
-# дисклеймер
-c.setFillColor(HexColor("#F0E7D4")); c.rect(M,yt(ry+58),W-2*M,46,fill=1,stroke=0)
-st=ParagraphStyle("d",fontName="Sans",fontSize=8.4,leading=12,textColor=HexColor("#6b5a36"))
-p=Paragraph("Цифры приведены как ориентир и являются прогнозом, а не публичной офертой "
-            "или гарантией доходности. Точные параметры определяются по каждому объекту "
-            "и фиксируются договором. Инвестиции связаны с риском.",st)
-_,hh=p.wrap(W-2*M-28,60); p.drawOn(c,M+14,yt(ry+58)+ (46-hh)/2)
+    rule(M,ry+22,W-2*M,LINE,0.7); ry+=33
+c.setFillColor(TINT); c.rect(M,yt(ry+50),W-2*M,42,fill=1,stroke=0)
+st=ParagraphStyle("d",fontName="Sans",fontSize=8.3,leading=12,textColor=HexColor("#6E5C36"))
+p=Paragraph("Цифры — ориентир и прогноз, а не публичная оферта или гарантия доходности. "
+            "Параметры зависят от объекта и фиксируются договором. Инвестиции связаны с риском.",st)
+_,hh=p.wrap(W-2*M-28,60); p.drawOn(c,M+14,yt(ry+50)+(42-hh)/2)
 footer(5); c.showPage()
 
-# ════════════════════════════ СТР. 6-7 — ОБЪЕКТЫ ═════════════════════════
-cases=[
- ("mr-justs.jpg","Калининградская обл. · Зеленоградск","Mr. Just’s Hotel","ул. Пограничная, 1",
-  "Приспособление памятника «Здание отеля Восточная Пруссия» (1906 г.) под современный отель. Завершённый проект полного цикла.",
-  [("1906","год постройки"),("Отель","назначение"),("Реализован","статус")]),
- ("tambov-aseev.jpg","Тамбов","Комплекс доходных домов Асеева","ул. М. Горького, 49 / 49А / 49В",
-  "Объект культурного наследия — ансамбль из трёх исторических зданий. Приспособление под квартиры для долгосрочной аренды.",
-  [("1 310,7 м²","площадь"),("38","квартир"),("ОКН","статус")]),
- ("tula.jpg","Тула","Дом Д. Ф. Богородицкой","ул. Пирогова, 24",
-  "Объект культурного наследия XIX века с торговым залом. Приспособление под современное использование, аренда 49 лет.",
-  [("343,1 м²","площадь"),("9","квартир"),("ОКН","статус")]),
- ("spb.jpg","Санкт-Петербург","Историческое здание","Лесной проспект, 37, лит. Л",
-  "Объект культурного наследия регионального значения в долгосрочной аренде на 49 лет. Приспособление под арендные квартиры.",
-  [("654,1 м²","площадь"),("24","квартиры"),("Аренда 49 лет","право")]),
- ("svetlogorsk.jpg","Калининградская обл. · Светлогорск","Новый доходный дом","ул. Хуторская, 1",
-  "Строительство нового четырёхэтажного дома на собственном участке: квартиры под аренду и подземный паркинг.",
-  [("1 765,3 м²","площадь"),("32","квартиры"),("Стройка","статус")]),
- ("petergof.jpg","Санкт-Петербург · Петергоф","Новый доходный дом","ул. Суворовская, 3, корп. 8",
-  "Строительство нового четырёхэтажного жилого здания на собственном земельном участке под долгосрочную аренду.",
-  [("2 728,4 м²","площадь"),("44","квартиры"),("Стройка","статус")]),
-]
-def cases_page(items, pageno, first=False):
-    bg()
-    if first:
-        eyebrow(M,70,"Объекты компании")
-        title(M,100,"Реализованные и текущие проекты")
-        rule(M,120,46,GOLD,2)
-        topstart=150
-    else:
-        eyebrow(M,70,"Объекты компании")
-        title(M,98,"Портфель проектов",size=20)
-        topstart=128
-    ch=200; gap=22
+# ═══════════════════════ 6 · ОБЪЕКТЫ ═══════════════════════
+cases=[("mr-justs.jpg","Калининградская обл. · Зеленоградск","Mr. Just’s Hotel","ул. Пограничная, 1",
+        "Памятник «Здание отеля Восточная Пруссия» 1906 года приспособлен под современный отель. Завершённый проект полного цикла.",
+        [("1906","год постройки"),("Отель","назначение"),("Реализован","статус")]),
+ ("tambov-aseev.jpg","Тамбов","Комплекс домов Асеева","ул. М. Горького, 49",
+        "Объект культурного наследия — ансамбль из трёх исторических зданий. Создаются квартиры для долгосрочной аренды.",
+        [("1 311 м²","площадь"),("38","квартир"),("ОКН","статус")]),
+ ("tula.jpg","Тула","Дом Богородицкой","ул. Пирогова, 24",
+        "Памятник XIX века с торговым залом. Приспособление под современное использование, долгосрочная аренда на 49 лет.",
+        [("343 м²","площадь"),("9","квартир"),("ОКН","статус")])]
+def cases_page(items,pageno,kicker,headline):
+    bg(); section(kicker,headline)
+    top=150; ch=185; gap=24
     for i,(img,city,name,addr,desc,mets) in enumerate(items):
-        top=topstart+i*(ch+gap)
-        iw=240;
-        img_box(f"{A}/{img}", M, top, iw, ch-0, ratio=iw/(ch))
+        t=top+i*(ch+gap); iw=232
+        img_box(f"{A}/{img}",M,t,iw,ch,f"case{pageno}_{i}")
         tx=M+iw+26; tw=W-M-tx
-        eyebrow(tx,top+4,city)
-        c.setFont("Serif-B",17); c.setFillColor(INK); c.drawString(tx,yt(top+30),name)
-        c.setFont("Sans",9.5); c.setFillColor(MUTED); c.drawString(tx,yt(top+47),addr)
-        st=ParagraphStyle("c",fontName="Sans",fontSize=9.6,leading=14.5,textColor=DARKMID)
-        p=Paragraph(desc,st); _,hh=p.wrap(tw,120); p.drawOn(c,tx,yt(top+64)-hh)
-        # метрики
-        myy=top+ch-34
-        mw=tw/3
+        eyebrow(tx,t+6,city); c.setFont("Serif-B",17); c.setFillColor(INK)
+        c.drawString(tx,t and yt(t+32),name)
+        c.setFont("Sans",9.5); c.setFillColor(MUTED); c.drawString(tx,yt(t+49),addr)
+        st=ParagraphStyle("c",fontName="Sans",fontSize=9.8,leading=14.5,textColor=BODY)
+        p=Paragraph(desc,st); _,hh=p.wrap(tw,120); p.drawOn(c,tx,yt(t+66)-hh)
+        myy=t+ch-30; mw=tw/3
         for j,(num,lab) in enumerate(mets):
             mx=tx+j*mw
             c.setFont("Serif-B",15); c.setFillColor(GOLD); c.drawString(mx,yt(myy),num)
             c.setFont("Sans",8); c.setFillColor(MUTED); c.drawString(mx,yt(myy+13),lab)
-        if j is not None and i<len(items)-1:
-            rule(M,top+ch+gap/2, W-2*M, BORDER,0.6)
+        if i<len(items)-1: rule(M,t+ch+gap/2,W-2*M,LINE,0.6)
     footer(pageno); c.showPage()
+cases_page(cases,6,"Портфель","Проверено в разных городах")
 
-cases_page(cases[:3], 6, first=True)
-cases_page(cases[3:], 7)
-
-# ════════════════════════════ СТР. 8 — ГЕОГРАФИЯ ═════════════════════════
+# ═══════════════════════ 7 · ГЕОГРАФИЯ ═══════════════════════
 bg()
-eyebrow(M,70,"География портфеля")
-title(M,100,"Проекты в городах с устойчивым спросом")
-rule(M,120,46,GOLD,2)
-para("Мы выбираем города с населением от 350 тысяч человек, развитым потенциалом и "
-     "удобной логистикой. С 2023 года компания участвовала более чем в 20 аукционах.",
-     M,146,W-2*M,leading=16,color=DARKMID)
-c.drawImage(ImageReader(f"{TMP}/areas.png"),M,yt(200+250),300,250,mask='auto')
-# список регионов
-rx=M+330;
-eyebrow(rx,196,"Реализованные проекты")
+y=section("География","От Калининграда до Тамбова")
+para("Компания выбирает города с устойчивым спросом и развитым потенциалом. "
+     "Реализованные и текущие проекты охватывают всю европейскую часть России.",
+     M,y+8,W-2*M,leading=17)
+c.drawImage(ImageReader(f"{TMP}/areas.png"),M,yt(y+44+250),300,250,mask='auto')
+rx=M+330
+eyebrow(rx,y+40,"Реализованные проекты")
 regions=[("Москва","Кузнецкий мост · Бауманская · Трифоновская · Волгоградский пр-т"),
          ("Московская обл.","Коломна · Долгопрудный · Реутов · Видное · Мытищи · Домодедово"),
          ("Калининградская обл.","Зеленоградск · Светлогорск"),
-         ("Другие","Сочи · Тамбов · Тула · Санкт-Петербург · Петергоф")]
-yy=216
+         ("Другие города","Сочи · Тамбов · Тула · Санкт-Петербург · Петергоф")]
+yy=y+62
 for t,d in regions:
-    c.setFont("Serif-B",11.5); c.setFillColor(GOLD); c.drawString(rx,yt(yy),t)
-    st=ParagraphStyle("r",fontName="Sans",fontSize=9,leading=13,textColor=DARKMID)
-    p=Paragraph(d,st); _,hh=p.wrap(W-M-rx,90); p.drawOn(c,rx,yt(yy+15)-hh)
-    yy+=15+hh+12
-para("За время работы приобретены 5 объектов культурного наследия и жилой дом; "
-     "последний реализованный проект — отель Mr. Just’s Hotel в Зеленоградске.",
-     M,480,W-2*M,leading=16,color=MUTED,size=9.5)
+    c.setFont("Serif-B",12); c.setFillColor(INK); c.drawString(rx,yt(yy),t)
+    st=ParagraphStyle("r",fontName="Sans",fontSize=9,leading=13,textColor=BODY)
+    p=Paragraph(d,st); _,hh=p.wrap(W-M-rx,90); p.drawOn(c,rx,yt(yy+15)-hh); yy+=15+hh+12
+para("За время работы приобретены пять объектов культурного наследия и жилой дом. "
+     "Текущие проекты — в Зеленоградске, Светлогорске, Санкт-Петербурге, Петергофе, "
+     "Тамбове и Туле: новое строительство и реставрация под долгосрочную аренду.",
+     M,y+330,W-2*M,leading=17,color=BODY)
+footer(7); c.showPage()
+
+# ═══════════════════════ 8 · ПРОЗРАЧНОСТЬ И УЧАСТИЕ ═══════════════════════
+bg()
+y=section("Прозрачность и участие","Как защищены ваши вложения")
+trust=[("Реальные активы","Конкретные здания в собственности или аренде — с адресом и документами."),
+       ("Объекты культурного наследия","Дефицитный, устойчивый в цене и востребованный продукт."),
+       ("Юридическая чистота","Проверка истории объекта; отношения закреплены договором."),
+       ("Регулярная отчётность","Понятные отчёты по стадиям проекта и арендным поступлениям.")]
+cw=(W-2*M-24)/2; ty=y+10
+for i,(t,d) in enumerate(trust):
+    col=i%2; rw=i//2; x=M+col*(cw+24); top=ty+rw*84
+    c.setFillColor(CARD); c.setStrokeColor(LINE); c.setLineWidth(1)
+    c.rect(x,yt(top+70),cw,70,fill=1,stroke=0)
+    c.setStrokeColor(GOLD); c.setLineWidth(2.5); c.line(x,yt(top),x,yt(top+70))
+    c.setFont("Serif-B",12.5); c.setFillColor(INK); c.drawString(x+18,yt(top+22),t)
+    st=ParagraphStyle("g",fontName="Sans",fontSize=9,leading=13,textColor=BODY)
+    p=Paragraph(d,st); _,hh=p.wrap(cw-34,70); p.drawOn(c,x+18,yt(top+34)-hh+2)
+# шаги участия
+sy=ty+200
+tracked(M,sy,"КАК СТАТЬ УЧАСТНИКОМ","Sans-B",8.5,GOLD,2)
+steps=[("Знакомство","Высылаем материалы и отвечаем на вопросы — без обязательств."),
+       ("Выбор объекта","Изучаете конкретные здания, документы и экономику."),
+       ("Договор","Условия и распределение дохода фиксируются до вложения средств."),
+       ("Доход","Получаете арендный доход и регулярную отчётность.")]
+swy=sy+22; scw=(W-2*M-3*16)/4
+for i,(t,d) in enumerate(steps):
+    x=M+i*(scw+16)
+    c.setFillColor(GOLD); c.circle(x+12,yt(swy+8),12,fill=1,stroke=0)
+    c.setFont("Serif-B",11); c.setFillColor(PAPER); c.drawCentredString(x+12,yt(swy+12),str(i+1))
+    c.setFont("Serif-B",11.5); c.setFillColor(INK); c.drawString(x+30,yt(swy+12),t)
+    st=ParagraphStyle("s",fontName="Sans",fontSize=8.8,leading=12.5,textColor=BODY)
+    p=Paragraph(d,st); _,hh=p.wrap(scw-4,80); p.drawOn(c,x,yt(swy+34)-hh)
 footer(8); c.showPage()
 
-# ════════════════════════════ СТР. 9 — УСЛОВИЯ ═══════════════════════════
+# ═══════════════════════ 9 · ПРЕДЛОЖЕНИЕ + КОНТАКТЫ ═══════════════════════
 bg()
-eyebrow(M,70,"Условия участия")
-title(M,100,"Как инвестор входит в проект")
-rule(M,120,46,GOLD,2)
-steps=[("Знакомство","Высылаем презентацию и материалы, обсуждаем модель и отвечаем на вопросы. Без обязательств."),
-       ("Выбор объекта","Вы знакомитесь с конкретными зданиями, их документами и экономикой и выбираете понятный вам проект."),
-       ("Договор","Условия участия и распределения дохода фиксируются документально до вложения средств."),
-       ("Доход и отчётность","После запуска объекта вы получаете доход от аренды и регулярную отчётность по проекту.")]
-sy=165
-for i,(t,d) in enumerate(steps):
-    yy=sy+i*92
-    c.setFillColor(DARK); c.circle(M+22,yt(yy+10),22,fill=1,stroke=0)
-    c.setFont("Serif-B",16); c.setFillColor(GOLD); c.drawCentredString(M+22,yt(yy+16),str(i+1))
-    c.setFont("Serif-B",15); c.setFillColor(INK); c.drawString(M+62,yt(yy+6),t)
-    st=ParagraphStyle("s",fontName="Sans",fontSize=10,leading=15,textColor=DARKMID)
-    p=Paragraph(d,st); _,hh=p.wrap(W-2*M-62,90); p.drawOn(c,M+62,yt(yy+24)-hh)
-    if i<3: rule(M+62,yy+70,W-M-(M+62),BORDER,0.6)
-footer(9); c.showPage()
-
-# ════════════════════════════ СТР. 10 — ГАРАНТИИ ═════════════════════════
-bg()
-eyebrow(M,70,"Почему нам доверяют")
-title(M,100,"Прозрачность на каждом этапе")
-rule(M,120,46,GOLD,2)
-items=[("Реальные активы","Конкретные здания в собственности или долгосрочной аренде — с адресом и документами."),
-       ("Юридическая чистота","Проверка истории объекта и документов; отношения закреплены договором."),
-       ("Объекты культурного наследия","Дефицитный и устойчивый в цене продукт, востребованный на рынке."),
-       ("Регулярная отчётность","Понятные отчёты по стадиям проекта и арендным поступлениям."),
-       ("Полный цикл","Все этапы под единым контролем группы — без зависимости от подрядчиков."),
-       ("Долгосрочные отношения","Репутация важнее одной сделки: мы заинтересованы в возврате инвесторов.")]
-cw=(W-2*M-30)/2; cardh=98; gy=160
-for i,(t,d) in enumerate(items):
-    col=i%2; row=i//2
-    x=M+col*(cw+30); top=gy+row*(cardh+16)
-    c.setFillColor(CREAM); c.setStrokeColor(BORDER); c.setLineWidth(1)
-    c.rect(x,yt(top+cardh),cw,cardh,fill=1,stroke=0)
-    c.setStrokeColor(GOLD); c.setLineWidth(2.5); c.line(x,yt(top),x,yt(top+cardh))
-    c.setFont("Serif-B",13.5); c.setFillColor(INK); c.drawString(x+20,yt(top+26),t)
-for i,(t,d) in enumerate(items):
-    col=i%2; row=i//2
-    x=M+col*(cw+30); top=gy+row*(cardh+16)
-    st=ParagraphStyle("g",fontName="Sans",fontSize=9.4,leading=14,textColor=DARKMID)
-    p=Paragraph(d,st); _,hh=p.wrap(cw-36,90); p.drawOn(c,x+20,yt(top+40)-hh)
-footer(10); c.showPage()
-
-# ════════════════════════════ СТР. 11 — КОНТАКТЫ ═════════════════════════
-bg(dark=True)
-c.setStrokeColor(GOLD); c.setLineWidth(1); c.rect(28,28,W-56,H-56,fill=0,stroke=1)
-logo=ImageReader(f"{A}/logo.png"); lw=150; lh=lw*(1480/1065)
-c.drawImage(logo,(W-lw)/2,H-120-lh,lw,lh,mask='auto')
-c.setFillColor(CREAM); c.setFont("Serif-B",28)
-c.drawCentredString(W/2,400,"Познакомьтесь с объектами лично")
-st=ParagraphStyle("c",fontName="Sans",fontSize=11,leading=17,textColor=HexColor("#CFC8BC"),alignment=1)
-p=Paragraph("Расскажем о текущих проектах, покажем документы и экономику и ответим "
-            "на ваши вопросы. Первый шаг — без обязательств.",st)
-_,hh=p.wrap(360,120); p.drawOn(c,(W-360)/2,374-hh)
+eyebrow(M,70,"Предложение")
+title(M,102,"Познакомьтесь с объектами первыми",size=24); rule(M,120,44,GOLD,2)
+para("Этот бюллетень — приглашение к разговору. Читателям выпуска мы предлагаем "
+     "условия, которые обычно доступны только по личному запросу:",
+     M,148,W-2*M,leading=17)
+# панель предложения
+oy=190
+offers=[("Бесплатный расчёт доходности","по конкретному объекту, который вам интересен"),
+        ("Приоритетный доступ","к новым объектам — до публичного предложения"),
+        ("Личный осмотр и встреча","с командой — увидите объект и документы своими глазами"),
+        ("Сопровождение сделки","и прозрачная отчётность на всём сроке участия")]
+ph=2*86+16
+c.setFillColor(TINT); c.rect(M,yt(oy+ph),W-2*M,ph,fill=1,stroke=0)
+c.setStrokeColor(GOLD); c.setLineWidth(1.2); c.rect(M,yt(oy+ph),W-2*M,ph,fill=0,stroke=1)
+icw=(W-2*M-40)/2
+for i,(t,d) in enumerate(offers):
+    col=i%2; rw=i//2; x=M+24+col*icw; top=oy+18+rw*86
+    c.setFillColor(GOLD); c.saveState(); c.translate(x+5,yt(top+4)); c.rotate(45)
+    c.rect(-4,-4,8,8,fill=1,stroke=0); c.restoreState()
+    c.setFont("Serif-B",13); c.setFillColor(INK); c.drawString(x+20,yt(top),t)
+    st=ParagraphStyle("o",fontName="Sans",fontSize=9.5,leading=13.5,textColor=BODY)
+    p=Paragraph(d,st); _,hh=p.wrap(icw-44,60); p.drawOn(c,x+20,yt(top+16)-hh)
+# призыв
+cy=oy+ph+40
+st=ParagraphStyle("c",fontName="Serif-B",fontSize=17,leading=23,textColor=INK,alignment=TA_CENTER)
+p=Paragraph("Это ни к чему вас не обязывает. Один разговор — и вы увидите, "
+            "как устроен доход на реальных активах.",st)
+_,hh=p.wrap(W-2*M-60,80); p.drawOn(c,M+30,yt(cy)-hh)
 # контакты
-c.setStrokeColor(GOLD); c.setLineWidth(1); c.line(W/2-30,322,W/2+30,322)
-tracked(W/2, H-300, "КОНТАКТЫ", "Sans-B", 9, GOLD, 2, center=True)
-c.setFont("Serif",18); c.setFillColor(CREAM)
-c.drawCentredString(W/2,268,"info@montrecapital.ru")
-c.drawCentredString(W/2,240,"+7 (926) 531-55-30")
-c.setFont("Sans",10); c.setFillColor(HexColor("#9a9286"))
-c.drawCentredString(W/2,214,"montrecapital.ru")
-# дисклеймер
-st=ParagraphStyle("d",fontName="Sans",fontSize=7.6,leading=11,textColor=HexColor("#6f685c"),alignment=1)
-p=Paragraph("Материал носит ознакомительный характер и не является публичной офертой "
+ky=cy+70
+rule(W/2-30,ky-14,60,GOLD,1)
+tracked(W/2,ky+4,"СВЯЖИТЕСЬ С НАМИ","Sans-B",8.5,GOLD,2,center=True)
+c.setFont("Serif-B",19); c.setFillColor(INK)
+c.drawCentredString(W/2,yt(ky+34),"info@montrecapital.ru")
+c.setFont("Serif",17); c.drawCentredString(W/2,yt(ky+58),"+7 (926) 531-55-30")
+c.setFont("Sans",10); c.setFillColor(MUTED); c.drawCentredString(W/2,yt(ky+80),"montrecapital.ru")
+# логотип-чернила внизу
+ink=ImageReader(f"{A}/logo-ink.png"); lw=104; lh=lw*(1324/996)
+c.drawImage(ink,(W-lw)/2,98,lw,lh,mask='auto')
+st=ParagraphStyle("dd",fontName="Sans",fontSize=7.4,leading=10.5,textColor=MUTED,alignment=TA_CENTER)
+p=Paragraph("Материал носит информационный характер и не является публичной офертой "
             "или индивидуальной инвестиционной рекомендацией. Инвестиции связаны с риском. "
-            "Условия участия по каждому объекту определяются договором. © 2026 АО «Монтре».",st)
-_,hh=p.wrap(W-140,80); p.drawOn(c,70,70)
+            "Условия по каждому объекту определяются договором. © 2026 Монтре Кэпитал.",st)
+_,hh=p.wrap(W-150,60); p.drawOn(c,75,52)
 c.showPage()
 
 c.save()
-print("PDF:", OUT, os.path.getsize(OUT),"bytes")
+print("PDF:",OUT,os.path.getsize(OUT),"bytes")
