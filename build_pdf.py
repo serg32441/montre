@@ -48,7 +48,11 @@ def para(text,x,top,w,size=10.5,leading=16,color=BODY,font="Sans",align=TA_JUSTI
     p=Paragraph(text,st); _,h=p.wrap(w,2000); p.drawOn(c,x,yt(top)-h); return top+h
 def eyebrow(x,top,text,color=GOLD): tracked(x,top,text.upper(),"Sans-B",8.5,color,2.4)
 def section(kicker,headline,top=66,hsize=25):
-    eyebrow(M,top,kicker); title(M,top+30,headline,size=hsize); rule(M,top+48,44,GOLD,2)
+    eyebrow(M,top,kicker)
+    size=hsize
+    while size>16 and pdfmetrics.stringWidth(headline,"Serif-B",size)>(W-2*M):
+        size-=1
+    title(M,top+30,headline,size=size); rule(M,top+48,44,GOLD,2)
     return top+78
 def footer(n):
     rule(M,804,W-2*M,LINE,0.8); c.setFont("Sans",7.5); c.setFillColor(MUTED)
@@ -133,14 +137,15 @@ ty=qy+120
 tracked(M,ty,"ХРОНОЛОГИЯ","Sans-B",8.5,GOLD,2)
 tl=[("2006","Основание компании"),("2023","Старт программы доходных домов"),
     ("2024","Формирование группы"),("Сегодня","6 объектов · 7 700 м² в работе")]
-lx=M+8; rx=W-M-8; node_y=ty+44; step=(rx-lx)/3
-rule(lx,node_y,rx-lx,LINE,1.2)
+cwn=(W-2*M)/4; node_y=ty+44
+cxs=[M+cwn*(i+0.5) for i in range(4)]
+rule(cxs[0],node_y,cxs[3]-cxs[0],LINE,1.2)
 for i,(yr,desc) in enumerate(tl):
-    x=lx+i*step
+    x=cxs[i]
     c.setFillColor(GOLD); c.circle(x,yt(node_y),5,fill=1,stroke=0)
     c.setFont("Serif-B",15); c.setFillColor(INK); c.drawCentredString(x,yt(node_y-16),yr)
     st=ParagraphStyle("d",fontName="Sans",fontSize=8.6,leading=11.5,textColor=BODY,alignment=TA_CENTER)
-    p=Paragraph(desc,st); _,hh=p.wrap(step-12,50); p.drawOn(c,x-(step-12)/2,yt(node_y+18)-hh)
+    tw=cwn-16; p=Paragraph(desc,st); _,hh=p.wrap(tw,50); p.drawOn(c,x-tw/2,yt(node_y+18)-hh)
 # итог
 para("Так выкристаллизовалась модель, которую можно повторять: одни и те же "
  "принципы работают в разных городах и на разных типах зданий. Сегодня проекты "
@@ -238,7 +243,7 @@ _,hh=p.wrap(W-2*M-28,60); p.drawOn(c,M+14,yt(ry+50)+(42-hh)/2)
 footer(5); c.showPage()
 
 # ═══════════════════════ 6 · ОБЪЕКТЫ ═══════════════════════
-cases=[("mr-justs.jpg","Калининградская обл. · Зеленоградск","Mr. Just’s Hotel","ул. Пограничная, 1",
+cases=[("mr-justs.jpg","Зеленоградск","Mr. Just’s Hotel","ул. Пограничная, 1",
         "Памятник «Здание отеля Восточная Пруссия» 1906 года приспособлен под современный отель. Завершённый проект полного цикла.",
         [("1906","год постройки"),("Отель","назначение"),("Реализован","статус")]),
  ("tambov-aseev.jpg","Тамбов","Комплекс домов Асеева","ул. М. Горького, 49",
