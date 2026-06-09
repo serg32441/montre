@@ -79,17 +79,16 @@ nav {
   linear-gradient(105deg, rgba(14,11,8,0.95) 0%, rgba(14,11,8,0.8) 46%, rgba(14,11,8,0.52) 100%); }
 .hero::after { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0.5;
   background-image: repeating-linear-gradient(90deg, rgba(184,150,90,0.05) 0 1px, transparent 1px 88px); }
-.hero-content { position: relative; z-index: 2; width: 100%; max-width: 1080px; animation: fadeUp 1.2s ease-out 0.2s both; }
-.hero-lockup { display: flex; align-items: center; gap: 30px; flex-wrap: nowrap; margin: 16px 0 14px; }
-.hero-lockup h1 { margin: 0; white-space: nowrap; font-size: clamp(26px, 4.2vw, 50px); line-height: 1.06; }
-.hero-sub { font-family: var(--font-display); font-weight: 300; font-size: clamp(20px, 2.6vw, 30px); color: var(--gold-light); margin-bottom: 26px; }
+.hero-content { position: relative; z-index: 3; width: 100%; max-width: 560px; animation: fadeUp 1.2s ease-out 0.2s both; }
+.hero-logo-side { position: absolute; top: 84px; bottom: 56px; right: 6%; display: flex; align-items: center; z-index: 2; pointer-events: none; }
+.hero-logo-side img { height: 100%; width: auto; max-width: 40vw; object-fit: contain; }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
 .hero-tag { font-size: 11px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 22px; display: flex; align-items: center; gap: 14px; }
 .hero-tag::before { content: ''; display: block; width: 40px; height: 1px; background: var(--gold); }
-.hero h1 { font-family: var(--font-display); font-size: clamp(38px, 4.6vw, 60px); font-weight: 400; line-height: 1.14; color: var(--cream); margin-bottom: 26px; text-shadow: 0 1px 26px rgba(0,0,0,0.4); }
+.hero h1 { font-family: var(--font-display); font-size: clamp(32px, 3.4vw, 46px); font-weight: 400; line-height: 1.16; color: var(--cream); margin-bottom: 26px; text-shadow: 0 1px 26px rgba(0,0,0,0.4); }
 .hero h1 .accent { color: var(--gold-light); }
 .hero-desc { font-size: 15px; font-weight: 300; line-height: 1.85; color: rgba(245,240,232,0.8); max-width: 520px; margin-bottom: 44px; }
-.hero-logo { flex: none; height: clamp(76px, 11vw, 132px); width: auto; display: block; filter: drop-shadow(0 6px 30px rgba(0,0,0,0.45)); }
+.hero-logo { filter: drop-shadow(0 8px 36px rgba(0,0,0,0.5)); }
 .hero-note { margin-top: 38px; padding-top: 26px; border-top: 1px solid rgba(184,150,90,0.25); font-size: 13.5px; font-weight: 300; line-height: 1.9; color: rgba(245,240,232,0.7); }
 .hero-note b { color: var(--gold-light); font-weight: 500; }
 .hero-actions { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
@@ -268,6 +267,12 @@ footer { background: var(--dark); padding: 64px 60px 40px; border-top: 1px solid
 .footer-note { font-size: 11px; font-weight: 300; color: rgba(245,240,232,0.22); letter-spacing: 0.04em; max-width: 680px; line-height: 1.7; }
 
 /* RESPONSIVE */
+@media (max-width: 1200px) {
+  .hero { flex-direction: column; align-items: flex-start; justify-content: center; }
+  .hero-logo-side { position: static; height: auto; align-items: flex-start; margin-bottom: 26px; max-width: 100%; }
+  .hero-logo-side img { height: auto; max-height: 190px; max-width: 210px; }
+  .hero-content { max-width: 640px; }
+}
 @media (max-width: 1024px) {
   nav { padding: 18px 26px; }
   .nav-links { display: none; }
@@ -278,10 +283,7 @@ footer { background: var(--dark); padding: 64px 60px 40px; border-top: 1px solid
   .model-grid, .cases-grid, .market-grid { grid-template-columns: 1fr; }
   .pl-grid { grid-template-columns: 1fr 1fr; }
   .hero { padding: 104px 26px 72px; }
-  .hero-content { padding: 0; }
-  .hero-lockup { flex-wrap: wrap; gap: 16px; }
-  .hero-lockup h1 { white-space: normal; }
-  .hero-lockup .hero-logo { height: 92px; }
+  .hero-content { padding: 0; max-width: none; }
   .footer-top { flex-direction: column; gap: 32px; }
   footer { padding: 48px 26px 32px; }
   .object-badge { right: 0; bottom: -14px; }
@@ -292,8 +294,8 @@ footer { background: var(--dark); padding: 64px 60px 40px; border-top: 1px solid
   .nav-cta { padding: 9px 14px; letter-spacing: 0.06em; }
   .nav-cta .cta-full { display: none; }
   .nav-cta .cta-short { display: inline; }
-  .hero-lockup .hero-logo { height: 66px; }
-  .hero-lockup h1 { font-size: 30px; }
+  .hero-logo-side img { max-height: 150px; max-width: 170px; }
+  .hero h1 { font-size: 32px; }
   .form-row { grid-template-columns: 1fr; }
   .pl-grid { grid-template-columns: 1fr; }
   .hero-actions { flex-direction: column; align-items: flex-start; }
@@ -320,13 +322,10 @@ footer { background: var(--dark); padding: 64px 60px 40px; border-top: 1px solid
 <section class="hero">
   <div class="hero-image"></div>
   <div class="hero-overlay"></div>
+  <div class="hero-logo-side"><img class="hero-logo" src="assets/logo.png" alt="Монтре Кэпитал"></div>
   <div class="hero-content">
     <div class="hero-tag">Доходные дома в исторических зданиях</div>
-    <div class="hero-lockup">
-      <img class="hero-logo" src="assets/logo.png" alt="Монтре Кэпитал">
-      <h1>Инвестируйте в <span class="accent">историю</span>.</h1>
-    </div>
-    <p class="hero-sub">Получайте стабильный доход.</p>
+    <h1>Инвестируйте в <span class="accent">историю</span>.<br>Получайте стабильный доход.</h1>
     <p class="hero-desc">АО «Монтре Кэпитал» восстанавливает исторические здания и превращает их в современное арендное жильё. Мы работаем только с объектами, которые находятся в собственности компании.</p>
     <div class="hero-actions">
       <a href="assets/montre-investor-deck.pdf" target="_blank" rel="noopener" class="btn-primary">Получить презентацию</a>
