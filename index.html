@@ -65,7 +65,7 @@ nav {
 .nav-cta .cta-short { display: none; }
 
 /* HERO */
-.hero { position: relative; min-height: 100vh; display: flex; align-items: center; overflow: hidden; background: var(--dark); padding: 124px 60px 90px; }
+.hero { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; background: var(--dark); padding: 104px 28px 76px; text-align: center; }
 .hero-image {
   position: absolute; inset: -30px;
   /* [ФОТО] hero-фон — намеренно размыт и затемнён, служит фактурой, а не картинкой */
@@ -79,19 +79,17 @@ nav {
   linear-gradient(105deg, rgba(14,11,8,0.95) 0%, rgba(14,11,8,0.8) 46%, rgba(14,11,8,0.52) 100%); }
 .hero::after { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0.5;
   background-image: repeating-linear-gradient(90deg, rgba(184,150,90,0.05) 0 1px, transparent 1px 88px); }
-.hero-content { position: relative; z-index: 3; width: 100%; max-width: 560px; animation: fadeUp 1.2s ease-out 0.2s both; }
-.hero-logo-side { position: absolute; top: 84px; bottom: 56px; right: 6%; display: flex; align-items: center; z-index: 2; pointer-events: none; }
-.hero-logo-side img { height: 100%; width: auto; max-width: 40vw; object-fit: contain; }
+.hero-content { position: relative; z-index: 3; width: 100%; max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; animation: fadeUp 1.2s ease-out 0.2s both; }
+.hero-logo { width: auto; max-width: 84%; height: min(50vh, 460px); display: block; margin-bottom: 32px; filter: drop-shadow(0 8px 38px rgba(0,0,0,0.5)); }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
 .hero-tag { font-size: 11px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 22px; display: flex; align-items: center; gap: 14px; }
 .hero-tag::before { content: ''; display: block; width: 40px; height: 1px; background: var(--gold); }
 .hero h1 { font-family: var(--font-display); font-size: clamp(32px, 3.4vw, 46px); font-weight: 400; line-height: 1.16; color: var(--cream); margin-bottom: 26px; text-shadow: 0 1px 26px rgba(0,0,0,0.4); }
 .hero h1 .accent { color: var(--gold-light); }
 .hero-desc { font-size: 15px; font-weight: 300; line-height: 1.85; color: rgba(245,240,232,0.8); max-width: 520px; margin-bottom: 44px; }
-.hero-logo { filter: drop-shadow(0 8px 36px rgba(0,0,0,0.5)); }
 .hero-note { margin-top: 38px; padding-top: 26px; border-top: 1px solid rgba(184,150,90,0.25); font-size: 13.5px; font-weight: 300; line-height: 1.9; color: rgba(245,240,232,0.7); }
 .hero-note b { color: var(--gold-light); font-weight: 500; }
-.hero-actions { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+.hero-actions { display: flex; gap: 20px; align-items: center; justify-content: center; flex-wrap: wrap; }
 .btn-primary { display: inline-block; padding: 16px 38px; background: var(--gold); color: var(--dark); font-family: var(--font-body); font-size: 11px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; border: none; cursor: pointer; transition: all 0.3s; }
 .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
 .btn-ghost { display: inline-block; padding: 16px 38px; border: 1px solid rgba(245,240,232,0.3); color: rgba(245,240,232,0.78); font-family: var(--font-body); font-size: 11px; font-weight: 400; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; transition: all 0.3s; }
@@ -267,12 +265,6 @@ footer { background: var(--dark); padding: 64px 60px 40px; border-top: 1px solid
 .footer-note { font-size: 11px; font-weight: 300; color: rgba(245,240,232,0.22); letter-spacing: 0.04em; max-width: 680px; line-height: 1.7; }
 
 /* RESPONSIVE */
-@media (max-width: 1200px) {
-  .hero { flex-direction: column; align-items: flex-start; justify-content: center; }
-  .hero-logo-side { position: static; height: auto; align-items: flex-start; margin-bottom: 26px; max-width: 100%; }
-  .hero-logo-side img { height: auto; max-height: 190px; max-width: 210px; }
-  .hero-content { max-width: 640px; }
-}
 @media (max-width: 1024px) {
   nav { padding: 18px 26px; }
   .nav-links { display: none; }
@@ -294,11 +286,11 @@ footer { background: var(--dark); padding: 64px 60px 40px; border-top: 1px solid
   .nav-cta { padding: 9px 14px; letter-spacing: 0.06em; }
   .nav-cta .cta-full { display: none; }
   .nav-cta .cta-short { display: inline; }
-  .hero-logo-side img { max-height: 150px; max-width: 170px; }
+  .hero-logo { height: 44vh; max-height: 380px; max-width: 80%; }
   .hero h1 { font-size: 32px; }
   .form-row { grid-template-columns: 1fr; }
   .pl-grid { grid-template-columns: 1fr; }
-  .hero-actions { flex-direction: column; align-items: flex-start; }
+  .hero-actions { flex-direction: column; align-items: center; }
 }
 </style>
 </head>
@@ -322,8 +314,8 @@ footer { background: var(--dark); padding: 64px 60px 40px; border-top: 1px solid
 <section class="hero">
   <div class="hero-image"></div>
   <div class="hero-overlay"></div>
-  <div class="hero-logo-side"><img class="hero-logo" src="assets/logo.png" alt="Монтре Кэпитал"></div>
   <div class="hero-content">
+    <img class="hero-logo" src="assets/logo.png" alt="Монтре Кэпитал">
     <div class="hero-tag">Доходные дома в исторических зданиях</div>
     <h1>Инвестируйте в <span class="accent">историю</span>.<br>Получайте стабильный доход.</h1>
     <p class="hero-desc">АО «Монтре Кэпитал» восстанавливает исторические здания и превращает их в современное арендное жильё. Мы работаем только с объектами, которые находятся в собственности компании.</p>
