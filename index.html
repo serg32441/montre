@@ -108,6 +108,7 @@ section, .section { padding: 100px 60px; }
 .section-title { font-family: var(--font-display); font-size: clamp(36px, 4.2vw, 56px); font-weight: 300; line-height: 1.12; color: var(--dark); margin-bottom: 22px; }
 .section-title .accent { color: var(--gold); }
 .section-subtitle { font-size: 15px; font-weight: 300; line-height: 1.85; color: var(--muted); max-width: 560px; }
+.section-subtitle, .about-text, .step-desc, .point-body p, .cta-box-desc { text-align: justify; }
 
 /* ABOUT */
 .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
@@ -228,6 +229,34 @@ section, .section { padding: 100px 60px; }
 .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
 .faq-a-inner { padding: 0 50px 28px 0; font-size: 14px; font-weight: 300; line-height: 1.9; color: var(--muted); }
 .faq-item.open .faq-a { max-height: 360px; }
+/* QA (вопросы инвесторов) */
+.qa-list { max-width: 860px; margin: 56px auto 0; }
+.qa { padding: 30px 0; border-bottom: 1px solid var(--border); }
+.qa:first-child { border-top: 1px solid var(--border); }
+.qa-q { font-family: var(--font-display); font-size: 23px; font-weight: 500; color: var(--dark); line-height: 1.28; margin-bottom: 14px; display: flex; gap: 16px; align-items: baseline; }
+.qa-q .num { color: var(--gold); font-weight: 600; font-size: 17px; flex: none; }
+.qa-short { font-size: 14.5px; font-weight: 300; line-height: 1.85; color: var(--muted); text-align: justify; }
+.qa-short b { color: var(--dark); font-weight: 600; }
+.qa-toggle { margin-top: 16px; background: none; border: none; cursor: pointer; font-family: var(--font-body); font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); display: inline-flex; align-items: center; gap: 9px; padding: 0; transition: gap 0.3s; }
+.qa-toggle:hover { gap: 14px; }
+.qa-toggle::after { content: '+'; font-size: 16px; line-height: 1; }
+.qa.open .qa-toggle::after { content: '–'; }
+.qa-toggle .less { display: none; }
+.qa.open .qa-toggle .more { display: none; }
+.qa.open .qa-toggle .less { display: inline; }
+.qa-full { max-height: 0; overflow: hidden; transition: max-height 0.45s ease; }
+.qa.open .qa-full { max-height: 900px; }
+.qa-full-inner { padding-top: 18px; font-size: 14px; font-weight: 300; line-height: 1.85; color: var(--dark-mid); text-align: justify; }
+.qa-full-inner p { margin-bottom: 12px; }
+.qa-full-inner p:last-child { margin-bottom: 0; }
+.qa-full-inner ul { list-style: none; margin: 6px 0 14px; }
+.qa-full-inner li { padding: 8px 0 8px 24px; position: relative; }
+.qa-full-inner li::before { content: ''; position: absolute; left: 2px; top: 15px; width: 8px; height: 8px; border: 1px solid var(--gold); transform: rotate(45deg); }
+.qa-full-inner li b, .qa-full-inner p b { color: var(--dark); font-weight: 600; }
+@media (max-width: 600px) {
+  .qa-q { font-size: 19px; gap: 12px; }
+  .qa-q .num { font-size: 14px; }
+}
 
 /* CONTACT */
 .contact-section { background: var(--warm-white); }
@@ -676,34 +705,164 @@ footer { background: var(--dark); padding: 64px 60px 40px; border-top: 1px solid
 
 <!-- FAQ -->
 <section class="faq-section" id="faq">
-  <div class="section-tag">Вопросы инвесторов</div>
-  <h2 class="section-title">Отвечаем <span class="accent">на главное</span></h2>
-  <p class="section-subtitle">Собрали вопросы, которые чаще всего возникают при первом знакомстве с компанией.</p>
-  <div class="faq-wrap">
-    <div class="faq-item">
-      <button class="faq-q">Как формируется доход инвестора?</button>
-      <div class="faq-a"><div class="faq-a-inner">У инвестора два источника дохода. Первый — купонный доход: фиксированные ежеквартальные выплаты, основой для которых служит стабильный арендный поток от объектов. Второй — рост капитализации: реставрируя памятники и превращая их в современные активы, мы увеличиваем стоимость портфеля, а вместе с ним и рыночную стоимость ваших акций.</div></div>
+  <div class="section-tag">Отвечаем на главное</div>
+  <h2 class="section-title">Вопросы <span class="accent">инвесторов</span></h2>
+  <p class="section-subtitle">Ключевые вопросы о доходности, рисках и юридической защите ваших вложений. По каждому — короткий ответ и подробное объяснение.</p>
+  <div class="qa-list">
+
+    <div class="qa">
+      <h3 class="qa-q"><span class="num">01</span>Каков главный риск потери моих денег?</h3>
+      <p class="qa-short">Главный риск — снижение рыночного спроса на арендное жильё. Мы защищаем вложения, работая только с собственными объектами в центрах городов, которые после трансформации становятся уникальным продуктом. Кроме того, каждый проект находится в&nbsp;залоге у&nbsp;инвесторов до момента обратного выкупа акций.</p>
+      <button class="qa-toggle"><span class="more">Показать подробнее</span><span class="less">Свернуть</span></button>
+      <div class="qa-full"><div class="qa-full-inner">
+        <p>Главный инвестиционный риск в нашем сегменте — снижение рыночного спроса на аренду, которое может привести к падению ставок и незаполненности объектов. Наша бизнес-модель выстроена так, чтобы эффективно управлять этим риском:</p>
+        <ul>
+          <li><b>Активное управление активами.</b> Мы работаем только с объектами в полной собственности АО «Монтре Кэпитал» в центральных районах — это исключает юридические риски.</li>
+          <li><b>Создание дефицитного продукта.</b> Трансформация исторических зданий создаёт уникальный продукт, спрос на который более стабилен.</li>
+          <li><b>Залог недвижимости.</b> Каждый объект передаётся в залог инвесторам на весь период владения акциями и до их обратного выкупа компанией.</li>
+          <li><b>Фундаментальная защита капитала.</b> Капитализация базируется на реальной стоимости активов: даже при временном снижении аренды сами здания сохраняют ценность.</li>
+        </ul>
+      </div></div>
     </div>
-    <div class="faq-item">
-      <button class="faq-q">Чем подтверждается, что объекты реальные?</button>
-      <div class="faq-a"><div class="faq-a-inner">Каждый объект имеет конкретный адрес и находится в собственности или долгосрочной аренде компании. Здания приобретались на муниципальных аукционах. Документы можно изучить, а объект — посетить лично, в том числе уже реализованные проекты.</div></div>
+
+    <div class="qa">
+      <h3 class="qa-q"><span class="num">02</span>Чем именно обеспечены выплаты купонов?</h3>
+      <p class="qa-short">Выплаты купонов (<b>не более 20%</b> от дохода компании) обеспечены стабильным арендным потоком от портфеля недвижимости. Здание каждого проекта находится в залоге у инвесторов, что гарантирует защиту капитала.</p>
+      <button class="qa-toggle"><span class="more">Показать подробнее</span><span class="less">Свернуть</span></button>
+      <div class="qa-full"><div class="qa-full-inner">
+        <p>Финансовая модель построена так, чтобы выплата фиксированного купонного дохода была предсказуемой. Она обеспечивается из двух источников:</p>
+        <ul>
+          <li>Текущий арендный поток от уже работающих объектов.</li>
+          <li>Рост капитализации всего портфеля.</li>
+        </ul>
+        <p>На выплату купонов направляется строго ограниченная доля общего дохода — не более 20%; эта цифра заложена в модель как константа. Дополнительно юридическая структура сделки включает передачу объекта в залог инвесторам, что делает обязательства по выплатам максимально надёжными.</p>
+      </div></div>
     </div>
-    <div class="faq-item">
-      <button class="faq-q">Почему именно объекты культурного наследия?</button>
-      <div class="faq-a"><div class="faq-a-inner">Исторические здания в хороших локациях — это дефицитный актив с уникальным характером. Мы приспосабливаем их к современному использованию, сохраняя облик памятника. Такой продукт выгодно отличается на рынке аренды и устойчив в цене.</div></div>
+
+    <div class="qa">
+      <h3 class="qa-q"><span class="num">03</span>Что будет, если рынок аренды рухнет или объекты будут стоять пустыми?</h3>
+      <p class="qa-short">Обязательства защищены уникальностью объектов в центре города и финансовой устойчивостью модели (<b>40%</b> прибыли идёт на развитие). Здание каждого проекта находится в залоге у инвесторов — это надёжная защита вложений при любом сценарии.</p>
+      <button class="qa-toggle"><span class="more">Показать подробнее</span><span class="less">Свернуть</span></button>
+      <div class="qa-full"><div class="qa-full-inner">
+        <p>Устойчивость модели строится на трёх уровнях защиты:</p>
+        <ul>
+          <li><b>Локация.</b> Все объекты — в центральных районах, где спрос всегда выше.</li>
+          <li><b>Уникальность.</b> Трансформированные объекты формируют качественный сегмент рынка, менее подверженный обвалам.</li>
+          <li><b>Финансовое планирование.</b> Значительная часть прибыли (40%) реинвестируется в развитие.</li>
+        </ul>
+        <p>Ключевой элемент защиты — здание проекта находится в залоге у инвесторов, обеспечивая сохранность вложенных средств.</p>
+      </div></div>
     </div>
-    <div class="faq-item">
-      <button class="faq-q">Как я как инвестор контролирую проект?</button>
-      <div class="faq-a"><div class="faq-a-inner">Мы предоставляем отчётность по стадиям работ и арендным поступлениям. Вы всегда понимаете, на каком этапе находится объект — реставрация, строительство или эксплуатация — и как это отражается на доходе. Условия участия фиксируются договором заранее.</div></div>
+
+    <div class="qa">
+      <h3 class="qa-q"><span class="num">04</span>Насколько ликвидны акции? Как выйти из инвестиции?</h3>
+      <p class="qa-short">Акции торгуются на внебиржевом рынке, что обеспечивает их ликвидность. Вы сможете продать акции другим инвесторам через уполномоченных брокеров или площадку в любой момент по рыночной цене. Здание проекта остаётся в залоге у инвесторов до выхода из инвестиции.</p>
+      <button class="qa-toggle"><span class="more">Показать подробнее</span><span class="less">Свернуть</span></button>
+      <div class="qa-full"><div class="qa-full-inner">
+        <p>Ликвидность обеспечивается тем, что акции АО «Монтре Кэпитал» обращаются на внебиржевом рынке (OTC): вы не ограничены жёсткими сроками и можете реализовать актив, продав акции другому инвестору. Продажа происходит через авторизованных брокеров-партнёров или на нашей инвестиционной платформе; цена определяется рыночным спросом и предложением. Статус залогодержателя по объекту сохраняется за вами до момента продажи акций.</p>
+      </div></div>
     </div>
-    <div class="faq-item">
-      <button class="faq-q">В каких городах работает компания?</button>
-      <div class="faq-a"><div class="faq-a-inner">Мы выбираем города с устойчивым спросом на аренду и развитым потенциалом. Сегодня проекты ведутся в Калининградской области (Зеленоградск, Светлогорск), Санкт-Петербурге и Петергофе, Тамбове и Туле, а реализованные проекты есть также в Москве и Подмосковье.</div></div>
+
+    <div class="qa">
+      <h3 class="qa-q"><span class="num">05</span>Чистая доходность после налогов составит 8,7%, верно?</h3>
+      <p class="qa-short">Да. Купонный доход <b>10% годовых</b> облагается НДФЛ (13%), поэтому чистая доходность «на руки» составит <b>8,7%</b>.</p>
+      <button class="qa-toggle"><span class="more">Показать подробнее</span><span class="less">Свернуть</span></button>
+      <div class="qa-full"><div class="qa-full-inner">
+        <p>Ставка купона — 10% годовых до вычета налогов. Для физических лиц-резидентов РФ применяется НДФЛ 13%. Таким образом, фактическая чистая доходность после уплаты налога — 8,7% годовых. Мы придерживаемся принципа полной прозрачности в финансовых вопросах.</p>
+      </div></div>
     </div>
-    <div class="faq-item">
-      <button class="faq-q">С чего начать, если мне интересно?</button>
-      <div class="faq-a"><div class="faq-a-inner">Оставьте заявку или свяжитесь с нами напрямую. Мы пришлём презентацию по текущим объектам, разберём экономику и условия участия и ответим на все вопросы. Никаких обязательств на этом этапе нет.</div></div>
+
+    <div class="qa">
+      <h3 class="qa-q"><span class="num">06</span>Почему вы платите 10%, а не направляете всю прибыль на развитие?</h3>
+      <p class="qa-short">Это не замедлит рост. Привлечение капитала через понятный инструмент с фиксированной доходностью позволяет масштабировать портфель быстрее органического роста. При этом 40% прибыли мы направляем на развитие, а залог зданий даёт инвесторам уверенность в сохранности средств.</p>
+      <button class="qa-toggle"><span class="more">Показать подробнее</span><span class="less">Свернуть</span></button>
+      <div class="qa-full"><div class="qa-full-inner">
+        <p>Выплата купона — не изъятие средств из развития, а эффективный инструмент привлечения капитала для него. Быстрый рост портфеля за счёт привлечённых средств генерирует большую общую прибыль в будущем. 40% прибыли компания целенаправленно реинвестирует в приобретение и редевелопмент новых объектов, обеспечивая устойчивый рост капитализации.</p>
+      </div></div>
     </div>
+
+    <div class="qa">
+      <h3 class="qa-q"><span class="num">07</span>Как часто выплачиваются купоны и как я получу отчётность?</h3>
+      <p class="qa-short">Купоны выплачиваются <b>ежеквартально</b>. Отчётность о работе компании предоставляется регулярно — доступ к ней вы имеете как акционер, включая информацию о статусе залога.</p>
+      <button class="qa-toggle"><span class="more">Показать подробнее</span><span class="less">Свернуть</span></button>
+      <div class="qa-full"><div class="qa-full-inner">
+        <p>Купонные выплаты осуществляются ежеквартально — это регулярный и прогнозируемый денежный поток. Как акционер АО «Монтре Кэпитал», вы имеете право на регулярную финансовую отчётность о деятельности компании, включая информацию о состоянии залогового имущества. Конкретный формат и способ предоставления отчётов фиксируется в документах.</p>
+      </div></div>
+    </div>
+
+    <div class="qa">
+      <h3 class="qa-q"><span class="num">08</span>Есть ли потенциал роста стоимости самих акций?</h3>
+      <p class="qa-short">Да. По мере роста стоимости портфеля недвижимости увеличивается стоимость компании, а значит, и цена ваших акций. При этом капитал защищён залогом конкретных зданий на весь период владения.</p>
+      <button class="qa-toggle"><span class="more">Показать подробнее</span><span class="less">Свернуть</span></button>
+      <div class="qa-full"><div class="qa-full-inner">
+        <p>Потенциал роста стоимости акций — одно из ключевых преимуществ модели. Доход состоит из двух частей: фиксированный купон и рост капитализации. Каждый успешно реализованный проект увеличивает рыночную стоимость портфеля, что напрямую ведёт к росту котировок акций. Вы зарабатываете не только на выплатах, но и на увеличении ценности самого актива.</p>
+      </div></div>
+    </div>
+
+    <div class="qa">
+      <h3 class="qa-q"><span class="num">09</span>Кто управляет проектами? Какой у команды опыт?</h3>
+      <p class="qa-short">Проекты под единым контролем команды АО «Монтре Кэпитал». Наш опыт — полный цикл работы с недвижимостью: от анализа и приобретения до реставрации и профессионального управления арендой. Здание каждого проекта передаётся в залог инвесторам.</p>
+      <button class="qa-toggle"><span class="more">Показать подробнее</span><span class="less">Свернуть</span></button>
+      <div class="qa-full"><div class="qa-full-inner">
+        <p>Весь цикл — от поиска объекта на аукционе до сдачи квартир в аренду — под единым контролем компании. Это исключает зависимость от случайных подрядчиков и гарантирует качество на каждом этапе. Команда обладает экспертизой в девелопменте, управлении недвижимостью и реализации сложных проектов редевелопмента, включая объекты культурного наследия.</p>
+      </div></div>
+    </div>
+
+    <div class="qa">
+      <h3 class="qa-q"><span class="num">10</span>Как вы выбираете объекты для покупки?</h3>
+      <p class="qa-short">Мы системно анализируем рынок и ищем недооценённые активы с высоким потенциалом, фокусируясь на исторической недвижимости в центральных локациях. Каждый объект становится основой отдельного проекта и передаётся в залог инвесторам.</p>
+      <button class="qa-toggle"><span class="more">Показать подробнее</span><span class="less">Свернуть</span></button>
+      <div class="qa-full"><div class="qa-full-inner">
+        <p>Выбор объекта — результат строгого отбора. Мы анализируем сотни предложений, чтобы найти недооценённые здания, в основном объекты культурного наследия, в престижных центральных районах. Ключевые критерии — высокий потенциал роста капитализации после реконструкции и возможность создания качественного арендного продукта.</p>
+      </div></div>
+    </div>
+
+    <div class="qa">
+      <h3 class="qa-q"><span class="num">11</span>В чём преимущество перед прямой покупкой недвижимости или другими фондами?</h3>
+      <p class="qa-short">Главное отличие — юридическая защита: при покупке наших акций здание передаётся вам в залог до конца срока инвестиций. Плюс низкий порог входа, пассивность и диверсификация.</p>
+      <button class="qa-toggle"><span class="more">Показать подробнее</span><span class="less">Свернуть</span></button>
+      <div class="qa-full"><div class="qa-full-inner">
+        <p>Прямая покупка требует миллионов и несёт риски одного объекта; другие фонды могут быть непрозрачными. Наше ключевое преимущество — юридическая гарантия: при инвестировании в проект приобретаемое здание оформляется в залог (ипотеку) в пользу акционеров. Ваша инвестиция подкреплена прямым правом требования на реальный актив — это делает вложения столь же защищёнными, как кредит под залог недвижимости, но с потенциалом дохода от акций.</p>
+      </div></div>
+    </div>
+
+    <div class="qa">
+      <h3 class="qa-q"><span class="num">12</span>Какова юридическая структура сделки? Я покупаю акции АО «Монтре Кэпитал»?</h3>
+      <p class="qa-short">Верно. Сделка дополняется договором ипотеки, по которому здание конкретного проекта передаётся в залог акционерам до момента обратного выкупа их акций.</p>
+      <button class="qa-toggle"><span class="more">Показать подробнее</span><span class="less">Свернуть</span></button>
+      <div class="qa-full"><div class="qa-full-inner">
+        <p>Структура сделки двухуровневая:</p>
+        <ul>
+          <li>Вы приобретаете акции непубличного акционерного общества «Монтре Кэпитал».</li>
+          <li>Для обеспечения ваших прав заключается договор ипотеки: здание данного инвестиционного раунда передаётся в залог в пользу акционеров.</li>
+        </ul>
+        <p>Залог действует до тех пор, пока компания не выкупит акции обратно.</p>
+      </div></div>
+    </div>
+
+    <div class="qa">
+      <h3 class="qa-q"><span class="num">13</span>Какие документы я получу?</h3>
+      <p class="qa-short">Инвестиционный меморандум, договор купли-продажи акций и договор ипотеки, подтверждающий залог здания в вашу пользу.</p>
+      <button class="qa-toggle"><span class="more">Показать подробнее</span><span class="less">Свернуть</span></button>
+      <div class="qa-full"><div class="qa-full-inner">
+        <p>Перед сделкой вы получите инвестиционный меморандум. После заключения сделки — полный пакет документов:</p>
+        <ul>
+          <li>Договор купли-продажи ценных бумаг.</li>
+          <li>Выписку, подтверждающую право собственности на акции.</li>
+          <li>Договор ипотеки (залога недвижимости), где залогодатель — компания, а залогодержатели — все инвесторы проекта.</li>
+        </ul>
+      </div></div>
+    </div>
+
+    <div class="qa">
+      <h3 class="qa-q"><span class="num">14</span>Какие гарантии вы можете предоставить?</h3>
+      <p class="qa-short">Главная гарантия — юридическое право на объект. Здание каждого проекта находится в залоге у инвесторов до момента обратного выкупа их акций.</p>
+      <button class="qa-toggle"><span class="more">Показать подробнее</span><span class="less">Свернуть</span></button>
+      <div class="qa-full"><div class="qa-full-inner">
+        <p>Ваш капитал обеспечен не словами и не общей стоимостью компании, а прямым юридическим правом. Здание каждого проекта передаётся в залог (оформляется ипотека) в пользу инвесторов. Это значит, что при невыполнении обязательств компанией заложенный актив может быть использован для удовлетворения требований акционеров. Это фундаментальная, юридически закреплённая защита ваших вложений.</p>
+      </div></div>
+    </div>
+
   </div>
 </section>
 
@@ -711,56 +870,38 @@ footer { background: var(--dark); padding: 64px 60px 40px; border-top: 1px solid
 <section class="contact-section" id="contact">
   <div class="contact-inner">
     <div>
-      <div class="section-tag">Контакты</div>
-      <h2 class="section-title">Свяжитесь <span class="accent">с нами</span></h2>
-      <p class="section-subtitle">Ответим на вопросы об участии в проектах и пришлём материалы. Как правило, отвечаем в течение рабочего дня.</p>
+      <div class="section-tag">Свяжитесь с нами</div>
+      <h2 class="section-title">Готовы обсудить детали <span class="accent">вашего участия?</span></h2>
+      <p class="section-subtitle">Переход от изучения проекта к реальным инвестициям — важный шаг. Чтобы сделать его комфортным и прозрачным, предлагаем начать с подробной инвестиционной презентации: в ней собраны ответы на главные вопросы, финансовая модель и информация о текущих проектах. Это вас ни к чему не обязывает, но позволит принять взвешенное решение.</p>
+      <p class="about-text" style="color: var(--muted); max-width: 460px;">Оставьте контакты — инвестиционный менеджер свяжется с вами в течение одного рабочего дня, чтобы ответить на вопросы или согласовать удобное время для звонка.</p>
+      <a href="assets/montre-investor-deck.pdf" target="_blank" rel="noopener" class="btn-primary" style="margin-top: 30px;">Получить презентацию</a>
       <div class="contact-info">
-        <!-- [КОНТАКТЫ] заменить на актуальные -->
         <div class="contact-info-item">
-          <div class="info-label">Электронная почта</div>
+          <div class="info-label">Срочный вопрос — напишите напрямую</div>
           <a class="info-value" href="mailto:info@montrecapital.ru">info@montrecapital.ru</a>
         </div>
         <div class="contact-info-item">
           <div class="info-label">Телефон</div>
           <a class="info-value" href="tel:+79265315530">+7 (926) 531-55-30</a>
         </div>
-        <div class="contact-info-item">
-          <div class="info-label">Юридическое лицо</div>
-          <div class="info-value">АО «Монтре Кэпитал»</div>
-        </div>
       </div>
     </div>
     <div>
       <form class="contact-form" id="leadForm" onsubmit="return submitLead(event)">
-        <div class="form-row">
-          <div class="form-field">
-            <label class="form-label" for="f-name">Имя</label>
-            <input class="form-input" id="f-name" type="text" required>
-          </div>
-          <div class="form-field">
-            <label class="form-label" for="f-phone">Телефон</label>
-            <input class="form-input" id="f-phone" type="tel" required>
-          </div>
+        <div class="form-field">
+          <label class="form-label" for="f-name">Имя <span style="color:var(--gold)">*</span></label>
+          <input class="form-input" id="f-name" type="text" required>
         </div>
         <div class="form-field">
-          <label class="form-label" for="f-email">Email</label>
-          <input class="form-input" id="f-email" type="email">
+          <label class="form-label" for="f-contact">Телефон или e-mail</label>
+          <input class="form-input" id="f-contact" type="text" placeholder="на выбор">
         </div>
         <div class="form-field">
-          <label class="form-label" for="f-interest">Мне интересно</label>
-          <select class="form-select" id="f-interest">
-            <option value="">Выберите вариант</option>
-            <option>Инвестиционное участие в проектах</option>
-            <option>Аренда квартиры</option>
-            <option>Общая информация о компании</option>
-          </select>
+          <label class="form-label" for="f-msg">Ваш вопрос</label>
+          <textarea class="form-textarea" id="f-msg" placeholder="необязательно"></textarea>
         </div>
-        <div class="form-field">
-          <label class="form-label" for="f-msg">Сообщение</label>
-          <textarea class="form-textarea" id="f-msg"></textarea>
-        </div>
-        <button type="submit" class="btn-primary">Отправить заявку</button>
-        <div class="form-ok" id="formOk">Спасибо! Заявка отправлена — мы свяжемся с вами.</div>
+        <button type="submit" class="btn-primary" style="width:100%; text-align:center;">Отправить заявку</button>
+        <div class="form-ok" id="formOk">Спасибо! Заявка отправлена — мы свяжемся с вами в течение рабочего дня.</div>
         <p class="form-note">Нажимая кнопку, вы соглашаетесь с обработкой персональных данных. Ваши данные не передаются третьим лицам.</p>
       </form>
     </div>
@@ -799,13 +940,10 @@ footer { background: var(--dark); padding: 64px 60px 40px; border-top: 1px solid
 </footer>
 
 <script>
-// Аккордеон FAQ
-document.querySelectorAll('.faq-q').forEach(function(btn){
+// Раскрытие подробных ответов
+document.querySelectorAll('.qa-toggle').forEach(function(btn){
   btn.addEventListener('click', function(){
-    var item = btn.parentElement;
-    var isOpen = item.classList.contains('open');
-    document.querySelectorAll('.faq-item').forEach(function(i){ i.classList.remove('open'); });
-    if(!isOpen){ item.classList.add('open'); }
+    btn.closest('.qa').classList.toggle('open');
   });
 });
 // Заглушка отправки формы
