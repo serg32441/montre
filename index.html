@@ -284,11 +284,21 @@ footer { background: var(--dark); padding: 64px 60px 40px; border-top: 1px solid
   .nav-cta { padding: 9px 14px; letter-spacing: 0.06em; }
   .nav-cta .cta-full { display: none; }
   .nav-cta .cta-short { display: inline; }
-  .hero-logo { height: 40vh; max-height: 340px; max-width: 78%; }
-  .hero h1 { font-size: 36px; }
+  .hero { text-align: left; padding: 96px 22px 64px; }
+  .hero-content { align-items: stretch; }
+  .hero-logo { height: 38vh; max-height: 320px; max-width: 74%; align-self: center; }
+  .hero-tag { text-align: left; }
+  .hero h1 { font-size: 35px; text-align: left; }
+  .hero-desc { font-size: 15px; text-align: justify; max-width: none; margin: 0 0 30px; }
+  .hero-note { text-align: justify; max-width: none; margin: 32px 0 0; }
+  .hero-actions { flex-direction: column; align-items: stretch; gap: 12px; }
+  .hero .btn-primary, .hero .btn-ghost { width: 100%; text-align: center; padding: 16px 24px; }
+  .stats-bar { flex-direction: column; gap: 0; padding: 6px 24px; }
+  .stat-item { flex: none; width: 100%; padding: 22px 0; border-bottom: 1px solid rgba(184,150,90,0.16); text-align: center; }
+  .stat-item:last-child { border-bottom: none; }
   .form-row { grid-template-columns: 1fr; }
   .pl-grid { grid-template-columns: 1fr; }
-  .hero-actions { flex-direction: column; align-items: center; }
+  .section-subtitle, .about-text, .case-desc, .step-desc, .market-card p, .point-body p, .faq-a-inner, .cta-box-desc, .invest-disclaimer { text-align: justify; }
 }
 </style>
 </head>
