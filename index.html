@@ -52,7 +52,8 @@ nav {
   backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(184,150,90,0.2);
 }
-.nav-logo { font-family: var(--font-display); font-size: 22px; font-weight: 600; color: var(--cream); letter-spacing: 0.06em; text-decoration: none; white-space: nowrap; flex-shrink: 0; display: flex; align-items: center; }
+.nav-logo { font-family: var(--font-body); font-size: 12px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cream); text-decoration: none; white-space: nowrap; flex-shrink: 0; transition: color 0.3s; }
+.nav-logo:hover { color: var(--gold-light); }
 .logo-lockup { display: inline-flex; align-items: center; gap: 7px; }
 .logo-lockup img { width: auto; display: block; }
 .nav-logo .logo-lockup img { height: 15px; }
@@ -296,8 +297,8 @@ footer { background: var(--dark); padding: 64px 60px 40px; border-top: 1px solid
   nav { padding: 18px 26px; }
   .nav-links { display: none; }
   section, .section, .model-section, .object-section, .invest-section, .contact-section, .market-section, .faq-section, .portfolio-list { padding: 70px 26px; }
-  .stats-bar { padding: 28px 26px; flex-wrap: wrap; gap: 22px; }
-  .stat-item { flex: 0 0 calc(50% - 11px); border-right: none; padding: 0; }
+  .stats-bar { padding: 30px 22px; }
+  .stat-item { padding: 0 14px; }
   .about-grid, .object-inner, .invest-inner, .contact-inner { grid-template-columns: 1fr; gap: 40px; }
   .model-grid, .cases-grid, .market-grid { grid-template-columns: 1fr; }
   .pl-grid { grid-template-columns: 1fr 1fr; }
@@ -313,19 +314,22 @@ footer { background: var(--dark); padding: 64px 60px 40px; border-top: 1px solid
   .nav-cta { padding: 9px 14px; letter-spacing: 0.06em; }
   .nav-cta .cta-full { display: none; }
   .nav-cta .cta-short { display: inline; }
-  .hero { text-align: left; padding: 96px 22px 64px; }
+  .hero { text-align: center; padding: 96px 22px 60px; }
   .hero-content { align-items: stretch; }
-  .hero-logo { height: 38vh; max-height: 320px; max-width: 74%; align-self: center; }
-  .hero-tag { text-align: center; }
-  .hero h1 { font-size: 35px; text-align: left; }
-  .hero-desc { font-size: 15px; text-align: justify; max-width: none; margin: 0 0 30px; }
-  .hero-note { text-align: justify; max-width: none; margin: 32px 0 0; }
+  .hero-logo { height: 36vh; max-height: 300px; max-width: 70%; align-self: center; }
+  .hero-tag { text-align: center; line-height: 1.75; }
+  .hero-tag span { display: block; }
+  .hero h1 { font-size: 33px; text-align: center; line-height: 1.18; }
+  .hero-desc { font-size: 15px; text-align: center; max-width: 440px; margin: 0 auto 26px; }
+  .hero-note { text-align: center; max-width: 440px; margin: 30px auto 0; }
   .hero-actions { flex-direction: column; align-items: stretch; gap: 12px; }
   .hero .btn-primary { width: 100%; text-align: center; padding: 16px 24px; }
   .hero-actions .btn-ghost { display: none; }
-  .stats-bar { flex-direction: column; gap: 0; padding: 6px 24px; }
-  .stat-item { flex: none; width: 100%; padding: 22px 0; border-bottom: 1px solid rgba(184,150,90,0.16); text-align: center; }
-  .stat-item:last-child { border-bottom: none; }
+  .stats-bar { flex-direction: row; gap: 0; padding: 24px 6px; }
+  .stat-item { flex: 1; width: auto; padding: 0 5px; border-right: 1px solid rgba(184,150,90,0.18); border-bottom: none; text-align: center; }
+  .stat-item:last-child { border-right: none; }
+  .stat-num { font-size: 24px; }
+  .stat-label { font-size: 8.5px; letter-spacing: 0.02em; line-height: 1.35; margin-top: 8px; }
   .form-row { grid-template-columns: 1fr; }
   .pl-grid { grid-template-columns: 1fr; }
   .section-subtitle, .about-text, .case-desc, .step-desc, .market-card p, .point-body p, .faq-a-inner, .cta-box-desc, .invest-disclaimer { text-align: justify; }
@@ -337,7 +341,7 @@ footer { background: var(--dark); padding: 64px 60px 40px; border-top: 1px solid
 
 <!-- NAVIGATION -->
 <nav>
-  <a href="#" class="nav-logo" aria-label="Монтре Кэпитал"><span class="logo-lockup"><img src="assets/logo-word.png" alt="Монтре Кэпитал"></span></a>
+  <a href="#" class="nav-logo">Главная</a>
   <ul class="nav-links">
     <li><a href="#about">О компании</a></li>
     <li><a href="#model">Стратегия</a></li>
@@ -355,7 +359,7 @@ footer { background: var(--dark); padding: 64px 60px 40px; border-top: 1px solid
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <img class="hero-logo" src="assets/logo.png" alt="Монтре Кэпитал">
-    <div class="hero-tag">Доходные дома в исторических зданиях</div>
+    <div class="hero-tag"><span>Доходные&nbsp;дома</span> <span>в&nbsp;исторических&nbsp;зданиях</span></div>
     <h1>Инвестируйте в <span class="accent">историю</span>.<br>Получайте стабильный доход.</h1>
     <p class="hero-desc">АО «Монтре Кэпитал» восстанавливает исторические здания и превращает их в современное арендное жильё. Мы работаем только с объектами, которые находятся в собственности компании.</p>
     <div class="hero-actions">
